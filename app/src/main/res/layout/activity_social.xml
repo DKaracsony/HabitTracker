@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFB16C">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:gravity="center_vertical">
+
+        <!-- Title Text "Social" -->
+        <TextView
+            android:id="@+id/textSocial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/social"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_orange_dark" />
+    </LinearLayout>
+
+    <!-- Main Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <!-- No Access Message (Initially Hidden) -->
+            <TextView
+                android:id="@+id/textViewNoAccess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_social_access"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="30dp"/>
+
+            <!-- Main Content (Initially Visible) -->
+            <LinearLayout
+                android:id="@+id/mainContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <!-- Add social UI elements here -->
+                <TextView
+                    android:id="@+id/sampleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Social Features Coming Soon!"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Black Bar at the Bottom (Footer) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <!-- Social (Currently Active) -->
+        <Button
+            android:id="@+id/buttonSocial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/darker_gray"
+            android:drawableTop="@drawable/proba47"
+            android:gravity="center"
+            android:paddingVertical="18dp"
+            android:drawablePadding="0dp"/>
+
+        <!-- Statistics -->
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba19"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp"/>
+
+        <!-- Add Habit -->
+        <Button
+            android:id="@+id/buttonAddHabit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/icon_add"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="16dp"/>
+
+        <!-- My Habits -->
+        <Button
+            android:id="@+id/buttonMyHabits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba12"
+            android:drawablePadding="0dp"
+            android:paddingVertical="18dp"/>
+
+        <!-- Settings -->
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/asdasd"
+            android:drawablePadding="0dp"
+            android:paddingVertical="18dp"/>
+    </LinearLayout>
+
+</LinearLayout>

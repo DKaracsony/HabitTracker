@@ -1,0 +1,189 @@
+<resources>
+    <!-- App Name & Titles -->
+    <string name="app_name">Sledovanie návykov</string>
+    <string name="habit_tracker">Habit\n     Tracker</string>
+
+    <!-- Buttons & Actions -->
+    <string name="use_offline">Použiť offline</string>
+    <string name="sign_in">Prihlásiť sa</string>
+    <string name="btn_login">Prihlásiť sa</string>
+    <string name="register">Registrovať</string>
+    <string name="back_to_login">Späť na prihlásenie</string>
+    <string name="forgot_password">Zabudli ste heslo?</string>
+
+    <!-- Input Placeholders -->
+    <string name="enter_email">Zadajte svoj e-mail</string>
+    <string name="enter_password">Zadajte svoje heslo</string>
+    <string name="confirm_password">Potvrďte heslo</string>
+    <string name="enter_nickname">Zadajte používateľské meno</string>
+
+    <!-- Internet & Permission Messages -->
+    <string name="no_internet_title">Chyba pripojenia</string>
+    <string name="no_internet_message">Nie ste pripojený k internetu</string>
+    <string name="try_again">Skúsiť znova</string>
+    <string name="back">Naspäť</string>
+    <string name="go_to_wifi_settings">WI-FI Nastavenia</string>
+    <string name="internet_restored">Internet obnovený</string>
+
+    <string name="permission_denied_title">Povolenie zamietnuté</string>
+    <string name="permission_denied_message">Povolenie na používanie internetu bolo zamietnuté</string>
+    <string name="ok">OK</string>
+
+    <!-- Password & Registration Messages -->
+    <string name="password_weak">Slabé heslo</string>
+    <string name="password_strong">Heslo akceptované</string>
+    <string name="user_registered_successfully">Registrácia používateľa bola úspešná</string>
+
+    <string name="email_available">Email je dostupný ✅</string>
+    <string name="email_taken">Email je už použitý ❌</string>
+    <string name="nickname_available">Prezývka je dostupná ✅</string>
+    <string name="nickname_taken">Prezývka je už obsadená ❌</string>
+
+    <string name="weak_password">Slabé heslo ❌ (Min. 8 znakov)</string>
+    <string name="medium_password">Stredne silné heslo ⚠ (Obsahovať číslo a veľké písmeno)</string>
+    <string name="strong_password">Silné heslo ✅</string>
+
+    <string name="password_match">Heslá sa zhodujú ✅</string>
+    <string name="password_no_match">Heslá sa nezhodujú ❌</string>
+
+    <!-- Error Messages -->
+    <string name="fill_all_fields">Vyplňte všetky polia</string>
+    <string name="passwords_no_match">Heslá sa nezhodujú</string>
+    <string name="email_in_use">Email je už použitý</string>
+    <string name="nickname_in_use">Prezývka je už obsadená</string>
+    <string name="password_not_strong">Heslo musí byť silné (min. 8 znakov, 1 číslo, 1 veľké písmeno)</string>
+
+    <string name="registration_failed">Registrácia zlyhala: %1$s</string>
+    <string name="registration_success">Používateľ bol úspešne zaregistrovaný</string>
+    <string name="firestore_error">Chyba Firestore: %1$s</string>
+
+    <!-- Debugging -->
+    <string name="login_clicked">Prihlásenie Kliknuté</string>
+    <string name="forgot_password_clicked">Zabudnuté heslo Kliknuté</string>
+
+
+
+    <!-- New ones to sort later -->
+    <string name="verification_email_sent">Overovací e-mail bol odoslaný na %1$s. Skontrolujte si svoju schránku.</string>
+    <string name="verification_email_failed">Nepodarilo sa odoslať overovací e-mail.</string>
+    <string name="login_success">(SK)Logged in successfully</string>
+    <string name="verify_email_prompt">(SK)Please verify your email first</string>
+    <string name="login_failed">(SK)Login failed, no account exists with these credentials</string>
+    <string name="internet_connected">Pripojeny\nk internetu</string>
+    <string name="no_internet">Nie ste pripojeny\nk internetu</string>
+    <string name="reset_password">Obnoviť heslo</string>
+    <string name="password_reset_sent">E-mail na obnovenie hesla bol odoslaný! Skontrolujte si schránku.</string>
+    <string name="password_reset_failed">Chyba: %1$s</string>
+    <string name="email_not_registered">Tento e-mail nie je registrovaný v našom systéme.</string>
+    <string name="my_habits">Moje návyky</string>
+    <string name="signed_out">Boli ste odhlásený</string>
+
+    <string name="home">Domov</string>
+    <string name="statistics">Štatistiky</string>
+    <string name="add_habit">Pridať zvyk</string>
+    <string name="settings">Nastavenia</string>
+    <string name="social">Social</string>
+    <string name="language_selection">Jazyk aplikácie</string>
+    <string name="user_preferences">Používateľské preferencie</string>
+    <string name="user_details">Používatelské informácie</string>
+    <string name="logout">Odhlásiť sa</string>
+
+    <!-- AddHabitActivity stringek -->
+    <string name="habit_name">Názov</string>
+    <string name="habit_description">Popis</string>
+    <string name="habit_goal">Cieľ</string>
+    <string name="save_habit">Uložiť</string>
+    <string name="goal_value">Hodnota Ciele</string>"
+    <string name="goal_period">Interval Ciele</string>
+    <string name="custom_unit">(SK)Measurement</string>
+    <string name="habit_type">Typ návyku</string>
+    <string name="build_habit">Budovať</string>
+    <string name="quit_habit">Ukončiť</string>
+    <string name="goal_period_default">(SK)Value</string>
+
+    <!-- More Strings that have been added - Szétosztani végén-->
+    <string name="fill_required_fields">Vyplnte vsekty polia</string>
+    <string name="custom_measurement">Vlastné</string>
+    <string name="enter_custom_measurement">Zadajte vlastny measurement</string>
+    <string name="habit_saved_offline">Návyk ulozeny offline</string>
+    <string-array name="goal_period_options">
+        <item>Denne</item>
+        <item>Týždenne</item>
+        <item>Mesačne</item>
+    </string-array>
+    <string-array name="measurement_units_sk">
+        <item>Krát</item>
+        <item>Počet</item>
+        <item>Kroky</item>
+        <item>Opakovania</item>
+        <item>Kalórie</item>
+        <item>Poháre</item>
+        <item>m</item>
+        <item>km</item>
+        <item>sek</item>
+        <item>min</item>
+        <item>hoď</item>
+        <item>ml</item>
+        <item>g</item>
+        <item>mg</item>
+        <item>Vlastné</item>
+    </string-array>
+
+    <string name="invalid_goal_value">(SK)Invalid goal value</string>
+    <string name="not_completed">Nesplnené</string>
+    <string name="completed">Splené</string>
+    <string name="enter_habit_name">Zadajte názov zvyku</string>
+    <string name="habit_save_failed">Ulozenie zvyku sa zlyhala</string>
+    <string name="no_habits_left">Prazdny zoznam 1</string>
+    <string name="no_completed_habits">Prazdny zoznam 2</string>
+
+    <!-- HabitDetailActivity strings -->
+    <string name="progress">Pokrok:</string>
+    <string name="save">Uložiť</string>
+    <string name="delete">Vymazať</string>
+    <string name="cancel">Zrušiť</string>
+
+    <string name="delete_habit_title">Vymazať návyk</string>
+    <string name="delete_habit_message">Naozaj chcete vymazať tento návyk?</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+
+    <string name="habit_deleted">Návyk vymazaný.</string>
+    <string name="progress_updated">Pokrok bol aktualizovaný.</string>
+
+    <string name="description">Popis:</string>
+    <string name="goal">Cieľ:</string>
+    <string name="habit_type_habit_details">Typ:</string>
+    <string name="goal_period_habit_details">Cieľové obdobie:</string>
+    <string name="measurement">Merná jednotka:</string>
+
+    <string name="enter_progress_value">(SK)Enter progress value</string>
+    <string name="add_progress">(SK)Add Progress</string>
+    <string name="enter_valid_number">(SK)Please enter a valid number</string>
+    <string name="enter_valid_positive_number">(SK)Please enter a positive number</string>
+    <string name="enter_reasonable_value">Zadajte rozumnú hodnotu progresu (max: 100 000).</string>
+
+
+    <!-- EditHabitActivity strings -->
+    <string name="edit_habit">Editovať návyk</string>
+    <string name="save_changes">Uložiť modifikácie</string>
+    <string name="modify_habit_title">Editovať návyk?</string>
+    <string name="modify_habit_message">Ste si istí, že chcete upraviť tento zvyk? Všetky dosiahnuté pokroky sa stratia.</string>
+    <string name="habit_updated">Návyk aktualizovaný</string>
+    <string name="error_loading_habit">(SK)Error Loading Habit</string>
+    <string name="habit_not_found">(SK)Habit Not Found</string>
+
+    <!-- SettingsActivity -->
+    <string name="username_placeholder">Prih. Meno: </string>
+    <string name="email_placeholder">Email: </string>
+    <string name="your_uuid">UUID: </string>
+
+    <!-- SocialActivity -->
+    <string name="no_social_access">(SK)In order to access Social features, you have to be signed in and connected to the internet</string>
+
+    <!-- StatisticsActivity -->
+    <string name="daily_stats_title">Štatistiky - Denné</string>
+    <string name="general_stats_title">Štatistiky - Všeobecné</string>
+    <string name="habit_list">Zoznam návykov</string>
+    <string name="general_statistics">Všeobecné štatistiky</string>
+</resources>

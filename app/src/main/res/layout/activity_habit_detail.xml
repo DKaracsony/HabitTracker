@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFB16C">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/textHeaderHabitName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_orange_dark"/>
+    </LinearLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Progress Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:elevation="4dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textCurrentProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Progress: 0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:paddingBottom="12dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingBottom="12dp">
+
+                    <Button
+                        android:id="@+id/buttonDecrease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="-"
+                        android:textSize="22sp"
+                        android:background="#FF5722"
+                        android:textColor="@android:color/white"
+                        android:padding="10dp"/>
+
+                    <Space
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/buttonIncrease"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="+"
+                        android:textSize="22sp"
+                        android:background="#4CAF50"
+                        android:textColor="@android:color/white"
+                        android:padding="10dp"/>
+                </LinearLayout>
+
+                <!-- New Manual Input Section -->
+                <EditText
+                    android:id="@+id/editTextManualProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_progress_value"
+                    android:background="@android:color/white"
+                    android:padding="10dp"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+
+                <Button
+                    android:id="@+id/buttonAddManualProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_progress"
+                    android:background="@color/light_orange"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"/>
+
+                <Button
+                    android:id="@+id/buttonEditHabit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/edit_habit"
+                    android:background="@color/light_orange"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+
+            <!-- Habit Details Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/white"
+                android:padding="12dp"
+                android:elevation="4dp">
+
+                <TextView
+                    android:id="@+id/textHabitDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/textHabitType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/habit_type_habit_details"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/textHabitGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goal"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/textMeasurement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/measurement"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/textGoalPeriod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/goal_period_habit_details"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="8dp"/>
+            </LinearLayout>
+
+            <!-- Buttons Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="12dp">
+
+                <Button
+                    android:id="@+id/buttonDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Delete"
+                    android:textSize="16sp"
+                    android:background="#F44336"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="Save"
+                    android:textSize="16sp"
+                    android:background="#4CAF50"
+                    android:textColor="@android:color/white"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Cancel"
+                android:textSize="16sp"
+                android:background="@color/light_orange"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="12dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/buttonSocial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba47"
+            android:gravity="center"
+            android:paddingVertical="18dp"/>
+
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba19"
+            android:gravity="center"
+            android:paddingVertical="18dp"/>
+
+        <Button
+            android:id="@+id/buttonAddHabit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/icon_add"
+            android:gravity="center"
+            android:paddingVertical="16dp"/>
+
+        <Button
+            android:id="@+id/buttonMyHabits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/darker_gray"
+            android:drawableTop="@drawable/proba12"
+            android:paddingVertical="18dp"/>
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/asdasd"
+            android:paddingVertical="18dp"/>
+    </LinearLayout>
+
+</LinearLayout>

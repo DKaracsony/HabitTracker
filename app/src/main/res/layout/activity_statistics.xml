@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFB16C">
+
+    <!-- Black Bar at the Top (Header) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:gravity="center_vertical">
+
+        <!-- Title Text "Statistics" -->
+        <TextView
+            android:id="@+id/textStatistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/statistics"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_orange_dark" />
+    </LinearLayout>
+
+    <!-- Scrollable Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Daily Statistics Section -->
+            <TextView
+                android:id="@+id/dailyStatsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#FF8800"
+                android:text="@string/daily_stats_title"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dateTextAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginBottom="20dp"
+                android:focusedMonthDateColor="@color/light_orange"
+                android:weekSeparatorLineColor="@android:color/black"/>
+
+            <!-- General Statistics Section -->
+
+            <TextView
+                android:id="@+id/generalTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#FF8800"
+                android:text="@string/general_stats_title"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+
+            <Button
+                android:id="@+id/buttonHabitList"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/habit_list"
+                android:background="@color/light_orange"
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp"/>
+
+            <Button
+                android:id="@+id/buttonGeneralStats"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="@string/general_statistics"
+                android:background="@color/light_orange"
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="25dp"/>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/buttonSocial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba47"
+            android:gravity="center"
+            android:paddingVertical="18dp"
+            android:drawablePadding="0dp"/>
+
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/darker_gray"
+            android:drawableTop="@drawable/proba19"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp"/>
+
+        <Button
+            android:id="@+id/buttonAddHabit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/icon_add"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/buttonMyHabits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/proba12"
+            android:drawablePadding="0dp"
+            android:paddingVertical="18dp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/asdasd"
+            android:drawablePadding="0dp"
+            android:paddingVertical="18dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

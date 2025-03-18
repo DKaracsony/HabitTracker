@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/light_orange"
+    android:padding="20dp"
+    android:gravity="center_horizontal">
+
+    <!-- Back Button (Top-Left) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:layout_marginBottom="30dp">
+
+        <!-- Back Button Container -->
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:padding="4dp"
+            android:background="@android:color/black"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/buttonGoBack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="←\n"
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:background="#FFD580"
+                android:gravity="center"
+                android:elevation="0dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Email Input -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Centered Buttons Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="20dp">
+
+        <!-- Sign In Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@android:color/black"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <Button
+                android:id="@+id/buttonLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/btn_login"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:background="#FFD580"
+                android:gravity="center"
+                android:elevation="0dp"/>
+        </LinearLayout>
+
+        <!-- Forgot Password Button (NEW) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@android:color/black"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <Button
+                android:id="@+id/buttonForgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/forgot_password"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:background="#FFD580"
+                android:gravity="center"
+                android:elevation="0dp"/>
+        </LinearLayout>
+
+        <!-- Register Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@android:color/black"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/register"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:background="#FFD580"
+                android:gravity="center"
+                android:elevation="0dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
