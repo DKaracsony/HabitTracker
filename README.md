@@ -1,1 +1,1 @@
-Bakalárska Práce - Dávid Karácsony
+Bakalárska Práca - Dávid Karácsony
