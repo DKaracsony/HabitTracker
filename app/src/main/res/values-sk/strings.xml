@@ -1,116 +1,203 @@
 <resources>
-    <!-- App Name & Titles -->
-    <string name="app_name">Sledovanie návykov</string>
-    <string name="habit_tracker">Habit\n     Tracker</string>
 
-    <!-- Buttons & Actions -->
+    <!-- App Name -->
+    <string name="app_name">Habit Tracker</string>
+
+    <!-- StartActivity -->
+    <string name="habit_tracker">Habit\n     Tracker</string>
     <string name="use_offline">Použiť offline</string>
     <string name="sign_in">Prihlásiť sa</string>
-    <string name="btn_login">Prihlásiť sa</string>
-    <string name="register">Registrovať</string>
-    <string name="back_to_login">Späť na prihlásenie</string>
-    <string name="forgot_password">Zabudli ste heslo?</string>
+    <string name="try_again">Skúsiť znova</string>
 
-    <!-- Input Placeholders -->
-    <string name="enter_email">Zadajte svoj e-mail</string>
-    <string name="enter_password">Zadajte svoje heslo</string>
+    <!-- LoginActivity -->
+    <string name="btn_login">Prihlásiť sa</string>
+    <string name="forgot_password">Zabudli ste heslo?</string>
+    <string name="login_success">Prihlásenie bolo úspešné</string>
+    <string name="verify_email_prompt">Najprv si overte svoj e-mail</string>
+
+    <!-- RegisterActivity -->
     <string name="confirm_password">Potvrďte heslo</string>
     <string name="enter_nickname">Zadajte používateľské meno</string>
-
-    <!-- Internet & Permission Messages -->
-    <string name="no_internet_title">Chyba pripojenia</string>
-    <string name="no_internet_message">Nie ste pripojený k internetu</string>
-    <string name="try_again">Skúsiť znova</string>
-    <string name="back">Naspäť</string>
-    <string name="go_to_wifi_settings">WI-FI Nastavenia</string>
-    <string name="internet_restored">Internet obnovený</string>
-
-    <string name="permission_denied_title">Povolenie zamietnuté</string>
-    <string name="permission_denied_message">Povolenie na používanie internetu bolo zamietnuté</string>
-    <string name="ok">OK</string>
-
-    <!-- Password & Registration Messages -->
-    <string name="password_weak">Slabé heslo</string>
-    <string name="password_strong">Heslo akceptované</string>
-    <string name="user_registered_successfully">Registrácia používateľa bola úspešná</string>
-
     <string name="email_available">Email je dostupný</string>
     <string name="email_taken">Email je už použitý</string>
     <string name="nickname_available">Prezývka je dostupná</string>
     <string name="nickname_taken">Prezývka je už obsadená</string>
-
     <string name="weak_password">Slabé heslo (Min. 8 znakov)</string>
     <string name="medium_password">Stredne silné heslo (Heslo musí obsahovať aspon 1 číslo a 1 veľké písmeno)</string>
     <string name="strong_password">Silné heslo</string>
-
     <string name="password_match">Heslá sa zhodujú</string>
     <string name="password_no_match">Heslá sa nezhodujú</string>
-
-    <!-- Error Messages -->
-    <string name="fill_all_fields">Vyplňte všetky polia</string>
     <string name="passwords_no_match">Heslá sa nezhodujú</string>
     <string name="email_in_use">Email je už použitý</string>
     <string name="nickname_in_use">Prezývka je už obsadená</string>
     <string name="password_not_strong">Heslo musí byť silné (min. 8 znakov, 1 číslo, 1 veľké písmeno)</string>
-
     <string name="registration_failed">Registrácia zlyhala: %1$s</string>
-    <string name="registration_success">Používateľ bol úspešne zaregistrovaný</string>
-    <string name="firestore_error">Chyba Firestore: %1$s</string>
-
-    <!-- Debugging -->
-    <string name="login_clicked">Prihlásenie Kliknuté</string>
-    <string name="forgot_password_clicked">Zabudnuté heslo Kliknuté</string>
-
-
-
-    <!-- New ones to sort later -->
     <string name="verification_email_sent">Overovací e-mail bol odoslaný na %1$s. Skontrolujte si svoju schránku.</string>
     <string name="verification_email_failed">Nepodarilo sa odoslať overovací e-mail.</string>
-    <string name="login_success">Prihlásenie bolo úspešné</string>
-    <string name="verify_email_prompt">Najprv si overte svoj e-mail</string>
-    <string name="login_failed">Prihlásenie zlyhalo, účet s týmito údajmi neexistuje</string>
-    <string name="internet_connected">Pripojené\nk internetu</string>
-    <string name="no_internet">Nie je pripojenie\nk internetu</string>
+    <string name="invalid_email_format">Zadajte platnú e-mailovú adresu.</string>
+
+    <!-- ForgotPasswordActivity -->
     <string name="reset_password">Obnoviť heslo</string>
     <string name="password_reset_sent">E-mail na obnovenie hesla bol odoslaný! Skontrolujte si schránku.</string>
     <string name="password_reset_failed">Chyba: %1$s</string>
     <string name="email_not_registered">Tento e-mail nie je registrovaný v našom systéme.</string>
+
+    <!-- MyHabitsActivity -->
     <string name="my_habits">Moje návyky</string>
+
+    <!-- SettingsActivity -->
     <string name="signed_out">Boli ste odhlásený</string>
-    <string name="invalid_email_format">Zadajte platnú e-mailovú adresu.</string>
-
-
-    <string name="home">Domov</string>
-    <string name="statistics">Štatistiky</string>
-    <string name="add_habit">Pridať návyk</string>
     <string name="settings">Nastavenia</string>
-    <string name="social">Social</string>
     <string name="language_selection">Jazyk aplikácie</string>
     <string name="user_preferences">Všeobecné</string>
     <string name="user_details">Používatelské informácie a navigácia</string>
     <string name="logout">Odhlásiť sa</string>
+    <string name="username_placeholder">Prih. meno: %1$s</string>
+    <string name="email_placeholder">Email: %1$s</string>
+    <string name="your_uuid">UUID: %1$s</string>
+    <string name="return_to_start">Späť na úvod</string>
+    <string name="reset_progress">Vymazať</string>
+    <string name="reset_progress_info">Vymazať pokrok</string>
+    <string name="delete_habits">Odstrániť</string>
+    <string name="delete_habits_info">Odstrániť všetky návyky</string>
+    <string name="confirm_reset_title">Vynulovať všetok pokrok</string>
+    <string name="confirm_reset_message">Týmto sa odstráni všetok pokrok, ale návyky zostanú. Ste si istý?</string>
+    <string name="confirm_delete_title">Vymazať všetky návyky</string>
+    <string name="confirm_delete_message">Týmto sa natrvalo vymažú všetky návyky a ich pokrok. Ste si istý? (Netýka sa zdielaných návykov)</string>
+    <string name="progress_reset_success">Pokrok bol úspešne odstránený</string>
+    <string name="habits_deleted_success">Všetky návyky a pokrok boli vymazané</string>
+    <string name="reminder_label">Denná pripomienka</string>
+    <string name="select_reminder_time">Čas pripomienky:</string>
+    <string name="pick_time">Vybrať čas</string>
+    <string name="reminder_set">Pripomienka bola nastavená</string>
+    <string name="reminder_cancelled">Pripomienka bola zrušená</string>
+    <string name="notifications_enabled">Upozornenia boli povolené</string>
+    <string name="notifications_denied">Povolenie na upozornenia bolo zamietnuté</string>
+    <string name="notifications_denied_permanently">Povoliť notifickácie môžete v systémových nastaveniach.</string>
 
-    <!-- AddHabitActivity stringek -->
-    <string name="habit_name">Názov</string>
-    <string name="habit_description">Popis</string>
-    <string name="habit_goal">Cieľ</string>
-    <string name="save_habit">Uložiť</string>
-    <string name="goal_value">Hodnota Ciele</string>"
-    <string name="goal_period">Interval Ciele</string>
-    <string name="custom_unit">Merná jednotka</string>
-    <string name="habit_type">Typ návyku</string>
-    <string name="build_habit">Budovať</string>
-    <string name="quit_habit">Ukončiť</string>
-    <string name="goal_period_default">Hodnota</string>
+    <!-- StatisticsActivity -->
+    <string name="statistics">Štatistiky</string>
+    <string name="daily_stats_title">Štatistiky - Denné</string>
+    <string name="followed_habits">Štatistiky - Sledované návyky</string>
+    <string name="no_habits_message">Nemáte žiadne sledované návyky</string>
+
+    <!-- SocialActivity -->
+    <string name="social">Social</string>
+    <string name="no_social_access">Pre prístup k sociálnym funkciám sa musíte prihlásiť a byť pripojený k internetu</string>
+    <string name="user_shared_habits">Zdieľané návyky používateľov</string>
+    <string name="my_shared_habits">Mnou zdieľané návyky</string>
+
+    <!-- AddHabitActivity -->
+    <string name="add_habit">Pridať návyk</string>
     <string name="share_habit">Zdieľať tento návyk</string>
     <string name="habit_saved_offline_and_shared">Zvyk bol uložený offline a zdieľaný online!</string>
     <string name="habit_saved_but_share_failed">Zvyk bol uložený offline, ale nepodarilo sa ho zdieľať online.</string>
-
-    <!-- More Strings that have been added - Szétosztani végén-->
-    <string name="fill_required_fields">Vyplňte všetky povinné polia</string>
-    <string name="custom_measurement">Vlastné</string>
-    <string name="enter_custom_measurement">Zadajte vlastnú mernú jednotku</string>
     <string name="habit_saved_offline">Návyk bol uložený offline</string>
+    <string name="enter_habit_name">Zadajte názov zvyku</string>
+    <string name="habit_save_failed">Uloženie návyku zlyhalo</string>
+
+    <!-- EditHabitActivity -->
+    <string name="fill_required_fields">Vyplňte všetky povinné polia</string>
+    <string name="modify_habit_title">Editovať návyk?</string>
+    <string name="modify_habit_message">Ste si istí, že chcete upraviť tento zvyk? Všetky dosiahnuté pokroky sa stratia.</string>
+    <string name="habit_updated">Návyk aktualizovaný</string>
+    <string name="error_loading_habit">Chyba pri načítavaní návyku</string>
+    <string name="habit_not_found">Návyk nebol nájdený</string>
+
+    <!-- HabitDetailActivity -->
+    <string name="save">Uložiť</string>
+    <string name="delete">Vymazať</string>
+    <string name="delete_habit_title">Vymazať návyk</string>
+    <string name="delete_habit_message">Naozaj chcete vymazať tento návyk?</string>
+    <string name="habit_deleted">Návyk odstráneny.</string>
+    <string name="progress_updated">Pokrok aktualizovaný.</string>
+    <string name="description">Popis:</string>
+    <string name="goal">Cieľ:</string>
+    <string name="habit_type_habit_details">Typ:</string>
+    <string name="goal_period_habit_details">Cieľové obdobie:</string>
+    <string name="measurement">Merná jednotka:</string>
+    <string name="enter_progress_value">Zadajte hodnotu pokroku</string>
+    <string name="add_progress">Pridať pokrok</string>
+    <string name="enter_reasonable_value">Zadajte rozumnú hodnotu progresu (max: 100 000).</string>
+    <string name="edit_habit">Editovať návyk</string>
+    <string name="progress_with_value">Pokrok: %1$d</string>
+    <string name="progress_for_date_with_value">Pokrok pre: %1$s</string>
+
+    <!-- ReminderReceiver -->
+    <string name="reminder_title">Habit Tracker</string>
+    <string name="reminder_message">Nezabudni si dnes skontrolovať svoje návyky!</string>
+    <string name="channel_name">Denné pripomenutie</string>
+    <string name="channel_description">Pripomenutie na sledovanie návykov</string>
+
+    <!-- DailyStatisticsActivity -->
+    <string name="selected_date">%s</string>
+    <string name="completed_habits">Splnené návyky</string>
+    <string name="not_completed_habits">Nesplnené návyky</string>
+    <string name="graphs">Denné grafy</string>
+
+    <!-- SharedHabitDetailActivity -->
+    <string name="remove_sharing">Odstrániť zdielanie</string>
+    <string name="adapt_habit">Prevziať návyk</string>
+    <string name="habit_adapted">Návyk bol úspešne pridaný!</string>
+    <string name="habit_removed">Zdieľanie návyku bolo odstránené!</string>
+    <string name="goal_period_prefix">/%1$s</string>
+
+    <!-- HabitStatisticsActivity -->
+    <string name="current_streak_with_unit">Aktuálny streak: %1$d %2$s</string>
+    <string name="longest_streak_with_unit">Najdlhší streak: %1$d %2$s</string>
+    <string name="habit_strength_phrase_with_emoji">%1$s %2$s</string>
+
+    <!-- SharedHabitAdapter -->
+    <string name="shared_by">\@%1$s</string>
+
+    <!-- LoginActivity & RegisterActivity -->
+    <string name="register">Registrovať</string>
+    <string name="enter_password">Zadajte svoje heslo</string>
+    <string name="fill_all_fields">Vyplňte všetky polia</string>
+
+    <!-- ForgotPasswordActivity & RegisterActivity -->
+    <string name="firestore_error">Chyba Firestore: %1$s</string>
+    <string name="unknown_error">Neznáma chyba</string>
+
+    <!-- AddHabitActivity & EditHabitActivity -->
+    <string name="save_habit">Uložiť</string>
+    <string name="enter_custom_measurement">Zadajte vlastnú mernú jednotku</string>
+    <string name="invalid_goal_value">Neplatná cieľová hodnota</string>
+    <string name="period_daily">/Denne</string>
+    <string name="period_weekly">/Týždenne</string>
+    <string name="period_monthly">/Mesačne</string>
+
+    <!-- PieChartFragment & MyHabitsActivity -->
+    <string name="not_completed">Nesplnené</string>
+    <string name="completed">Splnené</string>
+
+    <!-- DailyStatisticsActivity & MyHabitsActivity -->
+    <string name="no_habits_left">Zoznam nesplnených návykov je prázdny</string>
+    <string name="no_completed_habits">Zoznam splnených návykov je prázdny</string>
+
+    <!-- HabitDetailActivity & SettingsActivity -->
+    <string name="no">Nie</string>
+
+    <!-- HabitDetailActivity & HabitStatisticsActivity -->
+    <string name="description_with_value">Popis: %1$s</string>
+    <string name="goal_with_value">Cieľ: %1$d</string>
+    <string name="habit_type_with_value">Typ: %1$s</string>
+    <string name="goal_period_with_value">Cieľové obdobie: %1$s</string>
+    <string name="measurement_with_value">Merná jednotka: %1$s</string>
+
+    <!-- LoginActivity & RegisterActivity & ForgotPasswordActivity -->
+    <string name="enter_email">Zadajte svoj e-mail</string>
+    <string name="go_to_wifi_settings">WI-FI Nastavenia</string>
+    <string name="internet_restored">Internet obnovený</string>
+
+    <!-- AddHabitActivity & EditHabitActivity & SharedHabitDetailActivity -->
+    <string name="habit_name">Názov</string>
+    <string name="habit_description">Popis</string>
+    <string name="goal_value">Hodnota Ciele</string>"
+    <string name="goal_period">Interval Ciele</string>
+    <string name="habit_type">Typ návyku</string>
+    <string name="build_habit">Budovať</string>
+    <string name="quit_habit">Ukončiť</string>
     <string-array name="goal_period_options">
         <item>Denne</item>
         <item>Týždenne</item>
@@ -134,143 +221,15 @@
         <item>Vlastné</item>
     </string-array>
 
-    <string name="invalid_goal_value">Neplatná cieľová hodnota</string>
-    <string name="not_completed">Nesplnené</string>
-    <string name="completed">Splnené</string>
-    <string name="enter_habit_name">Zadajte názov zvyku</string>
-    <string name="habit_save_failed">Uloženie návyku zlyhalo</string>
-    <string name="no_habits_left">Zoznam nesplnených návykov je prázdny</string>
-    <string name="no_completed_habits">Zoznam splnených návykov je prázdny</string>
-
-    <!-- HabitDetailActivity strings -->
-    <string name="progress">Pokrok:</string>
-    <string name="save">Uložiť</string>
-    <string name="delete">Vymazať</string>
-    <string name="cancel">Zrušiť</string>
-    <string name="progress_for_date">Pokrok pre: </string>
-
-
-    <string name="delete_habit_title">Vymazať návyk</string>
-    <string name="delete_habit_message">Naozaj chcete vymazať tento návyk?</string>
+    <!-- EditHabitActivity & HabitDetailActivity & SettingsActivity -->
     <string name="yes">Áno</string>
-    <string name="no">Nie</string>
 
-    <string name="habit_deleted">Návyk vymazaný.</string>
-    <string name="progress_updated">Pokrok bol aktualizovaný.</string>
+    <!-- EditHabitActivity & SharedHabitDetailActivity & HabitDetailActivity -->
+    <string name="cancel">Zrušiť</string>
 
-    <string name="description">Popis:</string>
-    <string name="goal">Cieľ:</string>
-    <string name="habit_type_habit_details">Typ:</string>
-    <string name="goal_period_habit_details">Cieľové obdobie:</string>
-    <string name="measurement">Merná jednotka:</string>
+    <!-- ForgotPasswordActivity & LoginActivity & RegisterActivity & StartActivity -->
+    <string name="no_internet_title">Chyba pripojenia</string>
+    <string name="no_internet_message">Nie ste pripojený k internetu</string>
+    <string name="back">Naspäť</string>
 
-    <string name="enter_progress_value">Zadajte hodnotu pokroku</string>
-    <string name="add_progress">Pridať pokrok</string>
-    <string name="enter_valid_number">Zadajte platné číslo</string>
-    <string name="enter_valid_positive_number">Zadajte kladné číslo</string>
-    <string name="enter_reasonable_value">Zadajte rozumnú hodnotu progresu (max: 100 000).</string>
-
-    <!-- EditHabitActivity -->
-    <string name="edit_habit">Editovať návyk</string>
-    <string name="save_changes">Uložiť modifikácie</string>
-    <string name="modify_habit_title">Editovať návyk?</string>
-    <string name="modify_habit_message">Ste si istí, že chcete upraviť tento zvyk? Všetky dosiahnuté pokroky sa stratia.</string>
-    <string name="habit_updated">Návyk aktualizovaný</string>
-    <string name="error_loading_habit">Chyba pri načítavaní návyku</string>
-    <string name="habit_not_found">Návyk nebol nájdený</string>
-
-    <!-- SettingsActivity -->
-    <string name="username_placeholder">Prih. meno: %1$s</string>
-    <string name="email_placeholder">Email: %1$s</string>
-    <string name="your_uuid">UUID: %1$s</string>
-    <string name="return_to_start">Späť na úvod</string>
-    <string name="reset_progress">Vymazať</string>
-    <string name="reset_progress_info">Vymazať pokrok</string>
-    <string name="delete_habits">Odstrániť</string>
-    <string name="delete_habits_info">Odstrániť všetky návyky</string>
-    <string name="confirm_reset_title">Vynulovať všetok pokrok</string>
-    <string name="confirm_reset_message">Týmto sa odstráni všetok pokrok, ale návyky zostanú. Ste si istý?</string>
-    <string name="confirm_delete_title">Vymazať všetky návyky</string>
-    <string name="confirm_delete_message">Týmto sa natrvalo vymažú všetky návyky a ich pokrok. Ste si istý? (Netýka sa zdielaných návykov)</string>
-    <string name="progress_reset_success">Pokrok bol úspešne odstránený</string>
-    <string name="habits_deleted_success">Všetky návyky a pokrok boli vymazané</string>
-
-    <!-- Notification Strings -->
-    <string name="reminder_label">Denná pripomienka</string>
-    <string name="select_reminder_time">Čas pripomienky:</string>
-    <string name="pick_time">Vybrať čas</string>
-    <string name="reminder_set">Pripomienka bola nastavená</string>
-    <string name="reminder_cancelled">Pripomienka bola zrušená</string>
-    <string name="notifications_enabled">Upozornenia boli povolené</string>
-    <string name="notifications_denied">Povolenie na upozornenia bolo zamietnuté</string>
-    <string name="reminder_title">Habit Tracker</string>
-    <string name="reminder_message">Nezabudni si dnes skontrolovať svoje návyky!</string>
-    <string name="channel_name">Denné pripomenutie</string>
-    <string name="channel_description">Pripomenutie na sledovanie návykov</string>
-    <string name="notifications_disabled_title">Upozornenia sú odmietnuté</string>
-    <string name="notifications_disabled_message">Raz ste už zamietli povolenie na upozornenia. Povoliť ho môžete manuálne v systémových nastaveniach.</string>
-    <string name="open_settings">Otvoriť nastavenia</string>
-
-    <string name="notifications_denied_permanently">Povoliť notifickácie môžete v systémových nastaveniach.</string>
-
-    <!-- SocialActivity -->
-    <string name="no_social_access">Pre prístup k sociálnym funkciám sa musíte prihlásiť a byť pripojený k internetu</string>
-
-    <!-- StatisticsActivity -->
-    <string name="daily_stats_title">Štatistiky - Denné</string>
-    <string name="general_stats_title">Štatistiky - Všeobecné</string>
-    <string name="habit_list">Zoznam návykov</string>
-    <string name="general_statistics">Všeobecné štatistiky</string>
-    <string name="followed_habits">Štatistiky - Sledované návyky</string>
-    <string name="no_habits_message">Nemáte žiadne sledované návyky</string>
-
-    <!-- DailyStatisticsActivity -->
-    <string name="selected_date">%s</string>
-    <string name="completed_dsa">Splnené</string>
-    <string name="not_completed_dsa">Nesplnené</string>
-    <string name="completion_status">Stav dokončenia</string>
-    <string name="completed_habits">Splnené návyky</string>
-    <string name="not_completed_habits">Nesplnené návyky</string>
-    <string name="back_to_statistics">Späť na štatistiky</string>
-    <string name="graphs">Denné grafy</string>
-
-    <!-- SocialActivity -->
-    <string name="user_shared_habits">Zdieľané návyky používateľov</string>
-    <string name="my_shared_habits">Mnou zdieľané návyky</string>
-
-    <!-- SharedHabitDetailActivity -->
-    <string name="cancel_shda">Zrušiť</string>
-    <string name="remove_sharing">Odstrániť zdielanie</string>
-    <string name="adapt_habit">Prevziať návyk</string>
-    <string name="habit_adapted">Návyk bol úspešne pridaný!</string>
-    <string name="habit_removed">Zdieľanie návyku bolo odstránené!</string>
-
-    <!-- AddHabitActivity + EditHabitActivity -->
-    <string name="period_daily">/Denne</string>
-    <string name="period_weekly">/Týždenne</string>
-    <string name="period_monthly">/Mesačne</string>
-
-    <!-- ForgotPasswordActivity + RegisterActivity -->
-    <string name="unknown_error">Neznáma chyba</string>
-
-    <!-- HabitDetailActivity + HabitStatisticsActivity -->
-    <string name="progress_with_value">Pokrok: %1$d</string>
-    <string name="description_with_value">Popis: %1$s</string>
-    <string name="goal_with_value">Cieľ: %1$d</string>
-    <string name="habit_type_with_value">Typ: %1$s</string>
-    <string name="goal_period_with_value">Cieľové obdobie: %1$s</string>
-    <string name="measurement_with_value">Merná jednotka: %1$s</string>
-    <string name="progress_for_date_with_value">Pokrok pre: %1$s</string>
-
-    <!-- HabitStatisticsActivity -->
-    <string name="current_streak_with_unit">Aktuálny streak: %1$d %2$s</string>
-    <string name="longest_streak_with_unit">Najdlhší streak: %1$d %2$s</string>
-    <string name="habit_strength_with_percent">Sila návyku: %1$s</string>
-    <string name="habit_strength_phrase_with_emoji">%1$s %2$s</string>
-
-    <!-- SharedHabitAdapter -->
-    <string name="shared_by">\@%1$s</string>
-
-    <!-- SharedHabitDetailActivity -->
-    <string name="goal_period_prefix">/%1$s</string>
 </resources>

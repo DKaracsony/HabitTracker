@@ -1,114 +1,203 @@
 <resources>
-    <!-- App Name & Titles -->
-    <string name="app_name">Habit Tracker</string>
-    <string name="habit_tracker">Habit\n     Tracker</string>
 
-    <!-- Buttons & Actions -->
+    <!-- App Name -->
+    <string name="app_name">Habit Tracker</string>
+
+    <!-- StartActivity -->
+    <string name="habit_tracker">Habit\n     Tracker</string>
     <string name="use_offline">Use Offline</string>
     <string name="sign_in">Sign In</string>
-    <string name="btn_login">Sign In</string>
-    <string name="register">Register</string>
-    <string name="back_to_login">Back to login</string>
-    <string name="forgot_password">Forgot Password?</string>
+    <string name="try_again">Try again</string>
 
-    <!-- Input Placeholders -->
-    <string name="enter_email">Enter your email</string>
-    <string name="enter_password">Enter your password</string>
+    <!-- LoginActivity -->
+    <string name="btn_login">Sign In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_success">Logged in successfully</string>
+    <string name="verify_email_prompt">Please verify your email first</string>
+
+    <!-- RegisterActivity -->
     <string name="confirm_password">Confirm Password</string>
     <string name="enter_nickname">Enter Nickname</string>
-
-    <!-- Internet & Permission Messages -->
-    <string name="no_internet_title">Connection Issue</string>
-    <string name="no_internet_message">You are not connected to the internet</string>
-    <string name="try_again">Try again</string>
-    <string name="back">Back</string>
-    <string name="go_to_wifi_settings">WI-FI settings</string>
-    <string name="internet_restored">Internet restored</string>
-
-    <string name="permission_denied_title">Permission denied</string>
-    <string name="permission_denied_message">Permission denied to use the internet</string>
-    <string name="ok">OK</string>
-
-    <!-- Password & Registration Messages -->
-    <string name="password_weak">Weak password</string>
-    <string name="password_strong">Password is strong enough</string>
-    <string name="user_registered_successfully">User registered successfully</string>
-
     <string name="email_available">Email is available</string>
     <string name="email_taken">Email is already in use</string>
     <string name="nickname_available">Nickname is available</string>
     <string name="nickname_taken">Nickname is already taken</string>
-
     <string name="weak_password">Weak password (Min. 8 characters)</string>
     <string name="medium_password">Medium password (Include a number and an uppercase letter)</string>
     <string name="strong_password">Strong password</string>
-
     <string name="password_match">Passwords match</string>
     <string name="password_no_match">Passwords don’t match</string>
-
-    <!-- Error Messages -->
-    <string name="fill_all_fields">Please fill out all fields</string>
     <string name="passwords_no_match">Passwords do not match</string>
     <string name="email_in_use">Email is already in use</string>
     <string name="nickname_in_use">Nickname is already taken</string>
     <string name="password_not_strong">>Password must be at least 8 characters long and include one number and one uppercase letter</string>
-
     <string name="registration_failed">Registration failed: %1$s</string>
-    <string name="registration_success">User registered successfully</string>
-    <string name="firestore_error">Firestore Error: %1$s</string>
-
-    <!-- Debugging -->
-    <string name="login_clicked">Login Clicked</string>
-    <string name="forgot_password_clicked">Forgot Password Clicked</string>
-
-    <!-- New ones to sort later -->
     <string name="verification_email_sent">Verification email sent to %1$s. Please check your inbox.</string>
     <string name="verification_email_failed">Failed to send verification email.</string>
-    <string name="login_success">Logged in successfully</string>
-    <string name="verify_email_prompt">Please verify your email first</string>
-    <string name="login_failed">Login failed, no account exists with these credentials</string>
-    <string name="internet_connected">Connected to\nthe internet</string>
-    <string name="no_internet">No Internet\nconnection</string>
+    <string name="invalid_email_format">Please enter a valid email address.</string>
+
+    <!-- ForgotPasswordActivity -->
     <string name="reset_password">Reset Password</string>
     <string name="password_reset_sent">Password reset email sent! Please check your inbox.</string>
     <string name="password_reset_failed">An error occurred: %1$s</string>
     <string name="email_not_registered">This email is not registered in our system</string>
-    <string name="my_habits">My Habits</string>
-    <string name="signed_out">You Have Been Signed Out</string>
-    <string name="invalid_email_format">Please enter a valid email address.</string>
 
-    <string name="home">Home</string>
-    <string name="statistics">Statistics</string>
-    <string name="add_habit">Add Habit</string>
+    <!-- MyHabitsActivity -->
+    <string name="my_habits">My Habits</string>
+
+    <!-- SettingsActivity -->
+    <string name="signed_out">You Have Been Signed Out</string>
     <string name="settings">Settings</string>
-    <string name="social">Social</string>
     <string name="language_selection">App Language</string>
     <string name="user_preferences">General</string>
     <string name="user_details">User Details and Navigation</string>
     <string name="logout">Sign Out</string>
+    <string name="username_placeholder">Username: %1$s</string>
+    <string name="email_placeholder">Email: %1$s</string>
+    <string name="your_uuid">Your UUID: %1$s</string>
+    <string name="return_to_start">Return to Start</string>
+    <string name="reset_progress">Erase</string>
+    <string name="reset_progress_info">Erase all progress</string>
+    <string name="delete_habits">Delete</string>
+    <string name="delete_habits_info">Delete all data</string>
+    <string name="confirm_reset_title">Reset All Progress</string>
+    <string name="confirm_reset_message">This will erase all progress but keep your habits. Are you sure?</string>
+    <string name="confirm_delete_title">Delete All Habits</string>
+    <string name="confirm_delete_message">This will permanently delete all habits and their progress. Are you sure? (This does not include shared habits)</string>
+    <string name="progress_reset_success">Progress reset successfully</string>
+    <string name="habits_deleted_success">All habits and progress deleted</string>
+    <string name="reminder_label">Daily Reminder</string>
+    <string name="select_reminder_time">Reminder Time:</string>
+    <string name="pick_time">Pick Time</string>
+    <string name="reminder_set">Reminder set</string>
+    <string name="reminder_cancelled">Reminder cancelled</string>
+    <string name="notifications_enabled">Notifications enabled</string>
+    <string name="notifications_denied">Notification permission denied</string>
+    <string name="notifications_denied_permanently">Please enable notification permissions in system settings.</string>
 
-    <!-- AddHabitActivity stringek -->
-    <string name="habit_name">Title</string>
-    <string name="habit_description">Description</string>
-    <string name="habit_goal">Goal</string>
-    <string name="save_habit">Save</string>
-    <string name="goal_value">Goal Value</string>
-    <string name="goal_period">Goal Period</string>
-    <string name="custom_unit">Unit</string>
-    <string name="habit_type">Habit Type</string>
-    <string name="build_habit">Build</string>
-    <string name="quit_habit">Quit</string>
-    <string name="goal_period_default">Value</string>
+    <!-- StatisticsActivity -->
+    <string name="statistics">Statistics</string>
+    <string name="daily_stats_title">Statistics - Daily</string>
+    <string name="followed_habits">Statistics - Followed Habits</string>
+    <string name="no_habits_message">No Habits Are Being Tracked</string>
+
+    <!-- SocialActivity -->
+    <string name="social">Social</string>
+    <string name="no_social_access">In order to access Social features, you have to be signed in and connected to the internet</string>
+    <string name="user_shared_habits">User Shared Habits</string>
+    <string name="my_shared_habits">Habits Shared by Me</string>
+
+    <!-- AddHabitActivity -->
+    <string name="add_habit">Add Habit</string>
     <string name="share_habit">Share this habit</string>
     <string name="habit_saved_offline_and_shared">Habit saved offline and shared online!</string>
     <string name="habit_saved_but_share_failed">Habit saved offline, but failed to share online.</string>
-
-
-    <!-- More Strings that have been added - Új stringek, szétosztani funkcio szerint inkább-->
-    <string name="fill_required_fields">Fill required fields</string>
-    <string name="custom_measurement">Custom</string>
-    <string name="enter_custom_measurement">Enter custom measurement</string>
     <string name="habit_saved_offline">Habit saved offline</string>
+    <string name="enter_habit_name">Enter Habit Name</string>
+    <string name="habit_save_failed">Failed to save habit</string>
+
+    <!-- EditHabitActivity -->
+    <string name="fill_required_fields">Fill required fields</string>
+    <string name="modify_habit_title">Modify habit?</string>
+    <string name="modify_habit_message">Are you sure you want to modify this habit? All progress will be lost.</string>
+    <string name="habit_updated">Habit Updated</string>
+    <string name="error_loading_habit">Error Loading Habit</string>
+    <string name="habit_not_found">Habit Not Found</string>
+
+    <!-- HabitDetailActivity -->
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="delete_habit_title">Delete Habit</string>
+    <string name="delete_habit_message">Are you sure you want to delete this habit?</string>
+    <string name="habit_deleted">Habit deleted.</string>
+    <string name="progress_updated">Progress updated.</string>
+    <string name="description">Description:</string>
+    <string name="goal">Goal:</string>
+    <string name="habit_type_habit_details">Type:</string>
+    <string name="goal_period_habit_details">Goal Period:</string>
+    <string name="measurement">Measurement:</string>
+    <string name="enter_progress_value">Enter progress value</string>
+    <string name="add_progress">Add progress</string>
+    <string name="enter_reasonable_value">Please enter a reasonable progress value (max: 100,000)</string>
+    <string name="edit_habit">Edit Habit</string>
+    <string name="progress_with_value">Progress: %1$d</string>
+    <string name="progress_for_date_with_value">Progress for: %1$s</string>
+
+    <!-- ReminderReceiver -->
+    <string name="reminder_title">Habit Tracker</string>
+    <string name="reminder_message">Don\'t forget to track your habits today!</string>
+    <string name="channel_name">Habit Reminder</string>
+    <string name="channel_description">Daily reminder to track habits</string>
+
+    <!-- DailyStatisticsActivity -->
+    <string name="selected_date">%s</string>
+    <string name="completed_habits">Completed Habits</string>
+    <string name="not_completed_habits">Not Completed Habits</string>
+    <string name="graphs">Daily Graphs</string>
+
+    <!-- SharedHabitDetailActivity -->
+    <string name="remove_sharing">Remove Sharing</string>
+    <string name="adapt_habit">Adapt Habit</string>
+    <string name="habit_adapted">Habit successfully added!</string>
+    <string name="habit_removed">Habit sharing removed!</string>
+    <string name="goal_period_prefix">/%1$s</string>
+
+    <!-- HabitStatisticsActivity -->
+    <string name="current_streak_with_unit">Current Streak: %1$d %2$s</string>
+    <string name="longest_streak_with_unit">Longest Streak: %1$d %2$s</string>
+    <string name="habit_strength_phrase_with_emoji">%1$s %2$s</string>
+
+    <!-- SharedHabitAdapter -->
+    <string name="shared_by">\@%1$s</string>
+
+    <!-- LoginActivity & RegisterActivity -->
+    <string name="register">Register</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="fill_all_fields">Please fill out all fields</string>
+
+    <!-- ForgotPasswordActivity & RegisterActivity -->
+    <string name="firestore_error">Firestore Error: %1$s</string>
+    <string name="unknown_error">Neznáma chyba</string>
+
+    <!-- AddHabitActivity & EditHabitActivity -->
+    <string name="save_habit">Save</string>
+    <string name="enter_custom_measurement">Enter custom measurement</string>
+    <string name="invalid_goal_value">Invalid goal value</string>
+    <string name="period_daily">/Daily</string>
+    <string name="period_weekly">/Weekly</string>
+    <string name="period_monthly">/Monthly</string>
+
+    <!-- PieChartFragment & MyHabitsActivity -->
+    <string name="not_completed">Not Completed</string>
+    <string name="completed">Completed</string>
+
+    <!-- DailyStatisticsActivity & MyHabitsActivity -->
+    <string name="no_habits_left">No habits to display</string>
+    <string name="no_completed_habits">No completed habits to display</string>
+
+    <!-- HabitDetailActivity & SettingsActivity -->
+    <string name="no">No</string>
+
+    <!-- HabitDetailActivity & HabitStatisticsActivity -->
+    <string name="description_with_value">Description: %1$s</string>
+    <string name="goal_with_value">Goal: %1$d</string>
+    <string name="habit_type_with_value">Habit type: %1$s</string>
+    <string name="goal_period_with_value">Goal period: %1$s</string>
+    <string name="measurement_with_value">Measurement: %1$s</string>
+
+    <!-- LoginActivity & RegisterActivity & ForgotPasswordActivity -->
+    <string name="enter_email">Enter your email</string>
+    <string name="go_to_wifi_settings">WI-FI settings</string>
+    <string name="internet_restored">Internet restored</string>
+
+    <!-- AddHabitActivity & EditHabitActivity & SharedHabitDetailActivity -->
+    <string name="habit_name">Title</string>
+    <string name="habit_description">Description</string>
+    <string name="goal_value">Goal Value</string>
+    <string name="goal_period">Goal Period</string>
+    <string name="habit_type">Habit Type</string>
+    <string name="build_habit">Build</string>
+    <string name="quit_habit">Quit</string>
     <string-array name="goal_period_options">
         <item>Daily</item>
         <item>Weekly</item>
@@ -149,145 +238,15 @@
         <item>Vlastné</item>
     </string-array>
 
-    <string name="invalid_goal_value">Invalid goal value</string>
-    <string name="not_completed">Not Completed</string>
-    <string name="completed">Completed</string>
-    <string name="enter_habit_name">Enter Habit Name</string>
-    <string name="habit_save_failed">Failed to save habit</string>
-    <string name="no_habits_left">No habits to display</string>
-    <string name="no_completed_habits">No completed habits to display</string>
-
-
-    <!-- HabitDetailActivity strings -->
-    <string name="progress">Progress:</string>
-    <string name="save">Save</string>
-    <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>
-    <string name="progress_for_date">Progress for: </string>
-
-    <string name="delete_habit_title">Delete Habit</string>
-    <string name="delete_habit_message">Are you sure you want to delete this habit?</string>
+    <!-- EditHabitActivity & HabitDetailActivity & SettingsActivity -->
     <string name="yes">Yes</string>
-    <string name="no">No</string>
 
-    <string name="habit_deleted">Habit deleted.</string>
-    <string name="progress_updated">Progress updated.</string>
+    <!-- EditHabitActivity & SharedHabitDetailActivity & HabitDetailActivity -->
+    <string name="cancel">Cancel</string>
 
-    <string name="description">Description:</string>
-    <string name="goal">Goal:</string>
-    <string name="habit_type_habit_details">Type:</string>
-    <string name="goal_period_habit_details">Goal Period:</string>
-    <string name="measurement">Measurement:</string>
+    <!-- ForgotPasswordActivity & LoginActivity & RegisterActivity & StartActivity -->
+    <string name="no_internet_title">Connection Issue</string>
+    <string name="no_internet_message">You are not connected to the internet</string>
+    <string name="back">Back</string>
 
-    <string name="enter_progress_value">Enter progress value</string>
-    <string name="add_progress">Add progress</string>
-    <string name="enter_valid_number">Enter a valid number</string>
-    <string name="enter_valid_positive_number">Enter a positive number</string>
-    <string name="enter_reasonable_value">Please enter a reasonable progress value (max: 100,000)</string>
-
-
-    <!-- EditHabitActivity strings -->
-    <string name="edit_habit">Edit Habit</string>
-    <string name="save_changes">Save Changes</string>
-    <string name="modify_habit_title">Modify habit?</string>
-    <string name="modify_habit_message">Are you sure you want to modify this habit? All progress will be lost.</string>
-    <string name="habit_updated">Habit Updated</string>
-    <string name="error_loading_habit">Error Loading Habit</string>
-    <string name="habit_not_found">Habit Not Found</string>
-
-    <!-- SettingsActivity -->
-    <string name="username_placeholder">Username: %1$s</string>
-    <string name="email_placeholder">Email: %1$s</string>
-    <string name="your_uuid">Your UUID: %1$s</string>
-    <string name="return_to_start">Return to Start</string>
-    <string name="reset_progress">Erase</string>
-    <string name="reset_progress_info">Erase all progress</string>
-    <string name="delete_habits">Delete</string>
-    <string name="delete_habits_info">Delete all data</string>
-    <string name="confirm_reset_title">Reset All Progress</string>
-    <string name="confirm_reset_message">This will erase all progress but keep your habits. Are you sure?</string>
-    <string name="confirm_delete_title">Delete All Habits</string>
-    <string name="confirm_delete_message">This will permanently delete all habits and their progress. Are you sure? (This does not include shared habits)</string>
-    <string name="progress_reset_success">Progress reset successfully</string>
-    <string name="habits_deleted_success">All habits and progress deleted</string>
-
-
-    <!-- Notification Strings -->
-    <string name="reminder_label">Daily Reminder</string>
-    <string name="select_reminder_time">Reminder Time:</string>
-    <string name="pick_time">Pick Time</string>
-    <string name="reminder_set">Reminder set</string>
-    <string name="reminder_cancelled">Reminder cancelled</string>
-    <string name="notifications_enabled">Notifications enabled</string>
-    <string name="notifications_denied">Notification permission denied</string>
-    <string name="reminder_title">Habit Tracker</string>
-    <string name="reminder_message">Don\'t forget to track your habits today!</string>
-    <string name="channel_name">Habit Reminder</string>
-    <string name="channel_description">Daily reminder to track habits</string>
-    <string name="notifications_disabled_title">Notifications Disabled</string>
-    <string name="notifications_disabled_message">You\'ve previously denied notification permission. Please enable it manually in system settings.</string>
-    <string name="open_settings">Open Settings</string>
-    <string name="notifications_denied_permanently">Please enable notification permissions in system settings.</string>
-
-    <!-- SocialActivity -->
-    <string name="no_social_access">In order to access Social features, you have to be signed in and connected to the internet</string>
-
-    <!-- StatisticsActivity -->
-    <string name="daily_stats_title">Statistics - Daily</string>
-    <string name="general_stats_title">Statistics - General</string>
-    <string name="habit_list">Habit List</string>
-    <string name="general_statistics">General Statistics</string>
-    <string name="followed_habits">Statistics - Followed Habits</string>
-    <string name="no_habits_message">No Habits Are Being Tracked</string>
-
-    <!-- DailyStatisticsActivity -->
-    <string name="selected_date">%s</string>
-    <string name="completed_dsa">Completed</string>
-    <string name="not_completed_dsa">Not Completed</string>
-    <string name="completion_status">Completion Status</string>
-    <string name="completed_habits">Completed Habits</string>
-    <string name="not_completed_habits">Not Completed Habits</string>
-    <string name="back_to_statistics">Back to Statistics</string>
-    <string name="graphs">Daily Graphs</string>
-
-    <!-- SocialActivity -->
-    <string name="user_shared_habits">User Shared Habits</string>
-    <string name="my_shared_habits">Habits Shared by Me</string>
-
-    <!-- SharedHabitDetailActivity -->
-    <string name="cancel_shda">Cancel</string>
-    <string name="remove_sharing">Remove Sharing</string>
-    <string name="adapt_habit">Adapt Habit</string>
-    <string name="habit_adapted">Habit successfully added!</string>
-    <string name="habit_removed">Habit sharing removed!</string>
-
-
-    <!-- AddHabitActivity + EditHabitActivity -->
-    <string name="period_daily">/Daily</string>
-    <string name="period_weekly">/Weekly</string>
-    <string name="period_monthly">/Monthly</string>
-
-    <!-- ForgotPasswordActivity + RegisterActivity -->
-    <string name="unknown_error">Unknown error</string>
-
-    <!-- HabitDetailActivity + HabitStatisticsActivity -->
-    <string name="progress_with_value">Progress: %1$d</string>
-    <string name="description_with_value">Description: %1$s</string>
-    <string name="goal_with_value">Goal: %1$d</string>
-    <string name="habit_type_with_value">Habit type: %1$s</string>
-    <string name="goal_period_with_value">Goal period: %1$s</string>
-    <string name="measurement_with_value">Measurement: %1$s</string>
-    <string name="progress_for_date_with_value">Progress for: %1$s</string>
-
-    <!-- HabitStatisticsActivity -->
-    <string name="current_streak_with_unit">Current Streak: %1$d %2$s</string>
-    <string name="longest_streak_with_unit">Longest Streak: %1$d %2$s</string>
-    <string name="habit_strength_with_percent">Habit Strength: %1$s</string>
-    <string name="habit_strength_phrase_with_emoji">%1$s %2$s</string>
-
-    <!-- SharedHabitAdapter -->
-    <string name="shared_by">\@%1$s</string>
-
-    <!-- SharedHabitDetailActivity -->
-    <string name="goal_period_prefix">/%1$s</string>
 </resources>
