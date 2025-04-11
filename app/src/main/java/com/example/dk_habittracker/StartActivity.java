@@ -64,6 +64,12 @@
             registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
             setFullScreenMode();
+
+            SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            if (!sharedPreferences.contains("offline_uuid")) {
+                String uuid = java.util.UUID.randomUUID().toString();
+                sharedPreferences.edit().putString("offline_uuid", uuid).apply();
+            }
         }
 
         private void setFullScreenMode() {
