@@ -1,0 +1,1 @@
+Bakalárska Práca - Dávid Karácsony
