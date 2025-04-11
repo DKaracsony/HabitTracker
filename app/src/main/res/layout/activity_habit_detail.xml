@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFB16C">
+    android:background="#FFB16C"
+    android:orientation="vertical">
 
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical">
+        android:paddingStart="20dp">
 
         <TextView
             android:id="@+id/textHeaderHabitName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_dark"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_orange_dark"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Scrollable Content -->
@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,52 +40,62 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp"
+                android:layout_marginBottom="12dp"
                 android:elevation="4dp"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textCurrentProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Progress: 0"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/black"
                     android:gravity="center"
-                    android:paddingBottom="12dp"/>
+                    android:paddingBottom="6dp"
+                    android:text="Progress: 0"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textProgressDateIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="1dp"
+                    android:text="Progress for: ..." />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
+                    android:orientation="horizontal"
                     android:paddingBottom="12dp">
 
                     <Button
                         android:id="@+id/buttonDecrease"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:text="-"
-                        android:textSize="22sp"
                         android:background="#FF5722"
+                        android:padding="10dp"
+                        android:text="-"
                         android:textColor="@android:color/white"
-                        android:padding="10dp"/>
+                        android:textSize="22sp" />
 
                     <Space
                         android:layout_width="30dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <Button
                         android:id="@+id/buttonIncrease"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:text="+"
-                        android:textSize="22sp"
                         android:background="#4CAF50"
+                        android:padding="10dp"
+                        android:text="+"
                         android:textColor="@android:color/white"
-                        android:padding="10dp"/>
+                        android:textSize="22sp" />
                 </LinearLayout>
 
                 <!-- New Manual Input Section -->
@@ -92,35 +103,35 @@
                     android:id="@+id/editTextManualProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_progress_value"
                     android:background="@android:color/white"
-                    android:padding="10dp"
-                    android:textSize="18sp"
                     android:gravity="center"
+                    android:hint="@string/enter_progress_value"
                     android:inputType="number"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/buttonAddManualProgress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_progress"
+                    android:layout_marginTop="8dp"
                     android:background="@color/light_orange"
-                    android:textColor="@android:color/white"
                     android:padding="12dp"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:text="@string/add_progress"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/buttonEditHabit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_habit"
+                    android:layout_marginTop="8dp"
                     android:background="@color/light_orange"
-                    android:textColor="@android:color/white"
                     android:padding="12dp"
-                    android:textSize="16sp"
-                    android:layout_marginTop="8dp"/>
+                    android:text="@string/edit_habit"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -128,85 +139,86 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/habitItemBackground"
+                android:baselineAligned="false"
+                android:elevation="4dp"
                 android:orientation="vertical"
-                android:background="@android:color/white"
-                android:padding="12dp"
-                android:elevation="4dp">
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/textHabitDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/description"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
                     android:paddingBottom="8dp"
-                    android:visibility="visible"/>
+                    android:text="@string/description"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/textHabitType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="@string/habit_type_habit_details"
-                    android:textSize="16sp"
                     android:textColor="@android:color/black"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textHabitGoal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="@string/goal"
-                    android:textSize="16sp"
                     android:textColor="@android:color/black"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textMeasurement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="@string/measurement"
-                    android:textSize="16sp"
                     android:textColor="@android:color/black"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textGoalPeriod"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="@string/goal_period_habit_details"
-                    android:textSize="16sp"
                     android:textColor="@android:color/black"
-                    android:paddingBottom="8dp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <!-- Buttons Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_marginTop="12dp">
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/buttonDelete"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:text="Delete"
-                    android:textSize="16sp"
                     android:background="#F44336"
-                    android:textColor="@android:color/white"/>
+                    android:text="Delete"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/buttonSave"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:text="Save"
-                    android:textSize="16sp"
                     android:background="#4CAF50"
-                    android:textColor="@android:color/white"/>
+                    android:text="Save"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -215,11 +227,11 @@
                 android:id="@+id/buttonCancel"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Cancel"
-                android:textSize="16sp"
+                android:layout_marginTop="12dp"
                 android:background="@color/light_orange"
+                android:text="Cancel"
                 android:textColor="@android:color/white"
-                android:layout_marginTop="12dp"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -228,8 +240,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:weightSum="5">
 
         <Button
@@ -238,9 +250,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba47"
+            android:drawableTop="@drawable/social_icon"
             android:gravity="center"
-            android:paddingVertical="18dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonStatistics"
@@ -248,9 +260,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba19"
+            android:drawableTop="@drawable/statistics_icon"
             android:gravity="center"
-            android:paddingVertical="18dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonAddHabit"
@@ -260,7 +272,7 @@
             android:background="@color/black"
             android:drawableTop="@drawable/icon_add"
             android:gravity="center"
-            android:paddingVertical="16dp"/>
+            android:paddingVertical="16dp" />
 
         <Button
             android:id="@+id/buttonMyHabits"
@@ -268,8 +280,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/darker_gray"
-            android:drawableTop="@drawable/proba12"
-            android:paddingVertical="18dp"/>
+            android:drawableTop="@drawable/habits_icon"
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonSettings"
@@ -277,8 +289,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/asdasd"
-            android:paddingVertical="18dp"/>
+            android:drawableTop="@drawable/settings_icon"
+            android:paddingVertical="18dp" />
     </LinearLayout>
 
 </LinearLayout>

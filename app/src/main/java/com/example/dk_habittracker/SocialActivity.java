@@ -1,43 +1,60 @@
 package com.example.dk_habittracker;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SocialActivity extends AppCompatActivity {
 
     private TextView textViewNoAccess;
-    private View mainContent; // The main layout that will be hidden if access is denied
+    private View mainContent;
     private FirebaseAuth mAuth;
+    private SharedHabitAdapter adapter;
+    private SharedHabitAdapter myAdapter;
+    private final List<SharedHabit> sharedHabitList = new ArrayList<>();
+    private final List<SharedHabit> mySharedHabitList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize UI elements
         textViewNoAccess = findViewById(R.id.textViewNoAccess);
-        mainContent = findViewById(R.id.mainContent); // This should be the parent layout of the activity content
+        mainContent = findViewById(R.id.mainContent);
 
-        // Register network change receiver
+        RecyclerView recyclerViewSharedHabits = findViewById(R.id.recyclerViewSharedHabits);
+        recyclerViewSharedHabits.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SharedHabitAdapter(sharedHabitList);
+        recyclerViewSharedHabits.setAdapter(adapter);
+
+        RecyclerView recyclerViewMySharedHabits = findViewById(R.id.recyclerViewMySharedHabits);
+        recyclerViewMySharedHabits.setLayoutManager(new LinearLayoutManager(this));
+        myAdapter = new SharedHabitAdapter(mySharedHabitList);
+        recyclerViewMySharedHabits.setAdapter(myAdapter);
+
         registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-        // Footer Navigation Buttons
         Button socialButton = findViewById(R.id.buttonSocial);
         Button statisticsButton = findViewById(R.id.buttonStatistics);
         Button addHabitButton = findViewById(R.id.buttonAddHabit);
@@ -50,10 +67,7 @@ public class SocialActivity extends AppCompatActivity {
         myHabitsButton.setOnClickListener(view -> navigateTo(MyHabitsActivity.class));
         settingsButton.setOnClickListener(view -> navigateTo(SettingsActivity.class));
 
-        // Initial check for access conditions
         checkAccessConditions();
-
-        // Apply full-screen mode
         applyFullScreenMode();
     }
 
@@ -62,30 +76,94 @@ public class SocialActivity extends AppCompatActivity {
         boolean isConnected = isInternetAvailable();
 
         if (user == null || !isConnected) {
-            // No access: Show message, hide main content
             textViewNoAccess.setVisibility(View.VISIBLE);
             mainContent.setVisibility(View.GONE);
         } else {
-            // Access granted: Show content, hide message
             textViewNoAccess.setVisibility(View.GONE);
             mainContent.setVisibility(View.VISIBLE);
+            loadSharedHabits();
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void loadSharedHabits() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            android.util.Log.d("SocialActivity", "Current user is null!");
+            return;
+        }
+
+        String userId = currentUser.getUid();
+
+        FirebaseFirestore.getInstance().collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists() && document.contains("nickname")) {
+                        String currentUsername = document.getString("nickname");
+                        android.util.Log.d("SocialActivity", "Current Firestore username: " + currentUsername);
+
+                        getSharedPreferences("UserPreferences", MODE_PRIVATE)
+                                .edit()
+                                .putString("username", currentUsername)
+                                .apply();
+
+                        FirebaseFirestore.getInstance()
+                                .collection("sharedHabits")
+                                .get()
+                                .addOnSuccessListener(queryDocumentSnapshots -> {
+                                    sharedHabitList.clear();
+                                    mySharedHabitList.clear();
+
+                                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                                        SharedHabit habit = doc.toObject(SharedHabit.class);
+
+                                        android.util.Log.d("SocialActivity", "Checking habit shared by: " + habit.sharedByUsername);
+
+                                        if (habit.sharedByUsername.equals(currentUsername)) {
+                                            android.util.Log.d("SocialActivity", "→ ADDED to MY list: " + habit.habitName);
+                                            mySharedHabitList.add(habit);
+                                        } else {
+                                            android.util.Log.d("SocialActivity", "→ ADDED to OTHER list: " + habit.habitName);
+                                            sharedHabitList.add(habit);
+                                        }
+                                    }
+
+                                    myAdapter.notifyDataSetChanged();
+                                    adapter.notifyDataSetChanged();
+                                })
+                                .addOnFailureListener(e -> {
+                                    android.util.Log.e("SocialActivity", "Failed to load shared habits", e);
+                                });
+
+                    } else {
+                        android.util.Log.w("SocialActivity", "User document not found or missing nickname");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    android.util.Log.e("SocialActivity", "Failed to fetch user nickname", e);
+                });
     }
 
     private final BroadcastReceiver networkReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            checkAccessConditions(); // Update UI in real-time when internet state changes
+            checkAccessConditions();
         }
     };
 
     private boolean isInternetAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (cm != null) {
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnected();
-        }
-        return false;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+
+        android.net.Network network = cm.getActiveNetwork();
+        if (network == null) return false;
+
+        android.net.NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+        return capabilities != null && (
+                capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET));
     }
 
     private void navigateTo(Class<?> targetActivity) {
@@ -108,13 +186,13 @@ public class SocialActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkAccessConditions(); // Ensure access conditions are checked when resuming activity
+        checkAccessConditions();
         applyFullScreenMode();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(networkReceiver); //Unregister
+        unregisterReceiver(networkReceiver);
     }
 }

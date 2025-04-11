@@ -14,16 +14,16 @@ import java.util.List;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
 
-    private List<Habit> habitList;
-    private Context context;
-    private DBHelper dbHelper;
-    private String selectedDate;
+    private final List<Habit> habitList;
+    private final Context context;
+    private final DBHelper dbHelper;
+    private final String selectedDate;
 
     public HabitAdapter(Context context, List<Habit> habitList, String selectedDate) {
         this.context = context;
         this.habitList = habitList;
         this.dbHelper = new DBHelper(context);
-        this.selectedDate = selectedDate;  // Store selected date for progress retrieval
+        this.selectedDate = selectedDate;
     }
 
     @NonNull
@@ -45,13 +45,10 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
             holder.textHabitDescription.setVisibility(View.GONE);
         }
 
-        // Fetch progress using the corrected function
         int progress = dbHelper.getProgressForPeriod(habit.getId(), habit.getGoalPeriod(), selectedDate);
 
-        // Get current language
-        String currentLanguage = context.getResources().getConfiguration().locale.getLanguage();
+        String currentLanguage = context.getResources().getConfiguration().getLocales().get(0).getLanguage();
 
-        // Translate goal period if needed
         String translatedGoalPeriod;
         switch (habit.getGoalPeriod()) {
             case "Daily":
@@ -67,7 +64,6 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
                 translatedGoalPeriod = habit.getGoalPeriod();
         }
 
-        // Translate measurement unit if needed
         String translatedMeasurementUnit;
         switch (habit.getMeasurementUnit()) {
             case "Times":
@@ -113,12 +109,9 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
                 translatedMeasurementUnit = "mg";
                 break;
             default:
-                //(Custom Units)
                 translatedMeasurementUnit = habit.getMeasurementUnit();
         }
 
-
-        // Update goal text
         String goalText;
         if (habit.getHabitType().equals("Quit")) {
             goalText = progress + " / " + habit.getGoal() + " " + translatedMeasurementUnit + " (MAX) \n/ " + translatedGoalPeriod;
@@ -127,14 +120,19 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         }
         holder.textHabitGoal.setText(goalText);
 
-        // Click to open details
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, HabitDetailActivity.class);
             intent.putExtra("habit_id", habit.getId());
             intent.putExtra("selected_date", selectedDate);
             context.startActivity(intent);
-            ((MyHabitsActivity) context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            ((MyHabitsActivity) context).finish();
+
+            if (context instanceof MyHabitsActivity) {
+                ((MyHabitsActivity) context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                ((MyHabitsActivity) context).finish();
+            } else if (context instanceof DailyStatisticsActivity) {
+                ((DailyStatisticsActivity) context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                ((DailyStatisticsActivity) context).finish();
+            }
         });
     }
 

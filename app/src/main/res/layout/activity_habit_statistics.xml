@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFB16C"
+    android:orientation="vertical">
+
+    <!-- Black Bar at the Top -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
+
+        <TextView
+            android:id="@+id/textViewHabitTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Habit Statistics"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Section: Habit Graphs (Full Width) -->
+            <TextView
+                android:id="@+id/HabitProgressChartsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#FF8800"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="Habit Progress Charts"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Padded Chart Content -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerCharts"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:padding="5dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+
+            <!-- Section: Habit Details Header (Full Width) -->
+            <TextView
+                android:id="@+id/habitDetailsAndStrenghtsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="#FF8800"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:text="Habit Details and Achievements"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Padded Habit Detail Cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Card 1: Habit Info -->
+                <LinearLayout
+                    android:id="@+id/cardHabitDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@color/habitItemBackground"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/textHabitDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textHabitType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textHabitGoal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textMeasurement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textGoalPeriod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- Card 2: Streaks & Strength -->
+                <LinearLayout
+                    android:id="@+id/cardHabitStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/habitItemBackground"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/textViewStreak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="Current Streak: 0 days"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textViewLongestStreak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="Longest Streak: 0 days"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textViewHabitStrength"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:text="Habit Strength: 0%"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textViewHabitStrengthPhrase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingBottom="8dp"
+                        android:text="placeholder"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/buttonSocial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/social_icon"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp" />
+
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/darker_gray"
+            android:drawableTop="@drawable/statistics_icon"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp" />
+
+        <Button
+            android:id="@+id/buttonAddHabit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/icon_add"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="16dp" />
+
+        <Button
+            android:id="@+id/buttonMyHabits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/habits_icon"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp" />
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/settings_icon"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            android:paddingVertical="18dp" />
+    </LinearLayout>
+</LinearLayout>

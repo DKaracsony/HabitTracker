@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="@color/habitItemBackground"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Habit Name -->
+    <TextView
+        android:id="@+id/textViewHabitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Habit Description -->
+    <TextView
+        android:id="@+id/textViewHabitDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="2dp"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+</LinearLayout>

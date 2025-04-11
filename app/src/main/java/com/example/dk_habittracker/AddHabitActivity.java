@@ -1,42 +1,45 @@
 package com.example.dk_habittracker;
 
-
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
-
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class AddHabitActivity extends AppCompatActivity {
 
-
-    // UI Elements
     private EditText editTextHabitName, editTextHabitDescription, editTextGoalValue, editTextCustomMeasurement;
     private Spinner spinnerGoalPeriod, spinnerMeasurementUnit;
     private TextView textViewMeasurementPeriod;
-    private Button buttonBuildHabit, buttonQuitHabit, buttonSaveHabit;
-    private String selectedHabitType = "Build";
-
+    private Button buttonBuildHabit;
+    private Button buttonQuitHabit;
+    private CheckBox checkboxShareHabit;
+    private String selectedHabitType = "Build", currentUsername = null, currentUserUid = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_habit);
 
-
-        // *
         getWindow().setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-
-        // *
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
@@ -45,8 +48,6 @@ public class AddHabitActivity extends AppCompatActivity {
             }
         });
 
-
-        //UI Elements Initialization
         editTextHabitName = findViewById(R.id.editTextHabitName);
         editTextHabitDescription = findViewById(R.id.editTextHabitDescription);
         editTextGoalValue = findViewById(R.id.editTextGoalValue);
@@ -56,48 +57,37 @@ public class AddHabitActivity extends AppCompatActivity {
         textViewMeasurementPeriod = findViewById(R.id.textViewMeasurementPeriod);
         buttonBuildHabit = findViewById(R.id.buttonBuildHabit);
         buttonQuitHabit = findViewById(R.id.buttonQuitHabit);
-        buttonSaveHabit = findViewById(R.id.buttonSaveHabit);
+        Button buttonSaveHabit = findViewById(R.id.buttonSaveHabit);
+        checkboxShareHabit = findViewById(R.id.checkboxShareHabit);
 
+        buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+        buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
 
-        //Habit Type Buttons Colors
-        buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-        buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
-
-        //Goal Period Spinner Set up
         ArrayAdapter<CharSequence> goalPeriodAdapter = ArrayAdapter.createFromResource(
                 this, R.array.goal_period_options, android.R.layout.simple_spinner_item);
         goalPeriodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGoalPeriod.setAdapter(goalPeriodAdapter);
 
-
-        //Fetch Language Setting
-        String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+        String currentLanguage = getResources().getConfiguration().getLocales().get(0).getLanguage();
         int measurementArray = currentLanguage.equals("sk") ? R.array.measurement_units_sk : R.array.measurement_units;
 
-
-        //Measurement Unit Spinner Set Up
         ArrayAdapter<CharSequence> measurementAdapter = ArrayAdapter.createFromResource(
                 this, measurementArray, android.R.layout.simple_spinner_item);
         measurementAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMeasurementUnit.setAdapter(measurementAdapter);
 
-
-        // Handle Habit Type Selection
         buttonBuildHabit.setOnClickListener(v -> {
             selectedHabitType = "Build";
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         });
 
         buttonQuitHabit.setOnClickListener(v -> {
             selectedHabitType = "Quit";
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         });
 
-
-        // Handle Measurement Type Selection
         spinnerMeasurementUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -114,30 +104,22 @@ public class AddHabitActivity extends AppCompatActivity {
             }
         });
 
-
-        // Handle Goal Period Selection
         spinnerGoalPeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedPeriod = parent.getItemAtPosition(position).toString();
                 switch (selectedPeriod) {
                     case "Daily":
-                        textViewMeasurementPeriod.setText("/Daily");
+                    case "Denne":
+                        textViewMeasurementPeriod.setText(getString(R.string.period_daily));
                         break;
                     case "Weekly":
-                        textViewMeasurementPeriod.setText("/Weekly");
+                    case "Týždenne":
+                        textViewMeasurementPeriod.setText(getString(R.string.period_weekly));
                         break;
                     case "Monthly":
-                        textViewMeasurementPeriod.setText("/Monthly");
-                        break;
-                    case "Denne":
-                        textViewMeasurementPeriod.setText("/Denne");
-                        break;
-                    case "Týždenne":
-                        textViewMeasurementPeriod.setText("/Týždenne");
-                        break;
                     case "Mesačne":
-                        textViewMeasurementPeriod.setText("/Mesačne");
+                        textViewMeasurementPeriod.setText(getString(R.string.period_monthly));
                         break;
                     default:
                         textViewMeasurementPeriod.setText("");
@@ -148,16 +130,10 @@ public class AddHabitActivity extends AppCompatActivity {
             }
         });
 
-
-        // Save Habit Button Click
         buttonSaveHabit.setOnClickListener(v -> saveHabit());
 
-
-        // Handle Footer Navigation
         setupFooterNavigation();
 
-
-        // Apply full-screen mode
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -165,8 +141,64 @@ public class AddHabitActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        updateShareCheckboxVisibility();
+
+        registerReceiver(networkReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
+    private void updateShareCheckboxVisibility() {
+        boolean isConnected = isInternetAvailable();
+        FirebaseUser user = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+
+        if (isConnected && user != null) {
+            currentUserUid = user.getUid();
+
+            FirebaseFirestore.getInstance().collection("users")
+                    .document(currentUserUid)
+                    .get()
+                    .addOnSuccessListener(document -> {
+                        if (document.exists() && document.contains("nickname")) {
+                            currentUsername = document.getString("nickname");
+                            checkboxShareHabit.setVisibility(View.VISIBLE);
+                        } else {
+                            currentUsername = null;
+                            checkboxShareHabit.setVisibility(View.GONE);
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        currentUsername = null;
+                        checkboxShareHabit.setVisibility(View.GONE);
+                    });
+        } else {
+            checkboxShareHabit.setChecked(false);
+            checkboxShareHabit.setVisibility(View.GONE);
+            currentUsername = null;
+            currentUserUid = null;
+        }
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        if (cm != null) {
+            Network network = cm.getActiveNetwork();
+            if (network == null) return false;
+
+            NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+            return capabilities != null &&
+                    (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        }
+        return false;
+    }
+
+    private final android.content.BroadcastReceiver networkReceiver = new android.content.BroadcastReceiver() {
+        @Override
+        public void onReceive(android.content.Context context, android.content.Intent intent) {
+            updateShareCheckboxVisibility();
+        }
+    };
 
     private void saveHabit() {
         String habitName = editTextHabitName.getText().toString().trim();
@@ -176,7 +208,6 @@ public class AddHabitActivity extends AppCompatActivity {
         String measurementUnitSelected = spinnerMeasurementUnit.getSelectedItem().toString();
         String customMeasurement = editTextCustomMeasurement.getText().toString().trim();
 
-        // Convert goal period to English before saving, if in Slovak
         String goalPeriod;
         switch (goalPeriodSelected) {
             case "Denne":
@@ -192,14 +223,13 @@ public class AddHabitActivity extends AppCompatActivity {
                 goalPeriod = goalPeriodSelected;
         }
 
-        // Ensure habit name is not empty
         if (habitName.isEmpty()) {
             Toast.makeText(this, getString(R.string.enter_habit_name), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validate goal value
         int goalValue;
+
         try {
             goalValue = Integer.parseInt(goalValueStr);
             if (goalValue <= 0 || goalValue > 1000000) {
@@ -210,7 +240,6 @@ public class AddHabitActivity extends AppCompatActivity {
             return;
         }
 
-        // Convert Slovak measurement unit to English before saving
         String measurementUnit;
         switch (measurementUnitSelected) {
             case "Krát":
@@ -244,7 +273,6 @@ public class AddHabitActivity extends AppCompatActivity {
                 measurementUnit = measurementUnitSelected;
         }
 
-        // Handle custom measurement unit
         if (measurementUnit.equals("Custom")) {
             if (!customMeasurement.isEmpty()) {
                 measurementUnit = customMeasurement.trim();
@@ -254,29 +282,63 @@ public class AddHabitActivity extends AppCompatActivity {
             }
         }
 
-        // Save habit to database
-        DBHelper dbHelper = new DBHelper(this);
         String createdAt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-        // Create a Habit object
-        Habit newHabit = new Habit(0, habitName, habitDescription, goalValue, measurementUnit, goalPeriod, selectedHabitType, createdAt);
+        try (DBHelper dbHelper = new DBHelper(this)) {
+            Habit newHabit = new Habit(0, habitName, habitDescription, goalValue, measurementUnit, goalPeriod, selectedHabitType, createdAt);
+            long habitId = dbHelper.insertHabit(newHabit);
 
-        // Insert habit
-        long habitId = dbHelper.insertHabit(newHabit);
-
-        if (habitId != -1) {
-            Toast.makeText(this, getString(R.string.habit_saved_offline), Toast.LENGTH_SHORT).show();
-        } else {
+            if (habitId == -1) {
+                Toast.makeText(this, getString(R.string.habit_save_failed), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
             Toast.makeText(this, getString(R.string.habit_save_failed), Toast.LENGTH_SHORT).show();
+            Log.e("AddHabitActivity", "Error while saving habit: ", e);
+            return;
         }
 
-        // Restart the activity to clear all input fields
+        if (checkboxShareHabit.getVisibility() == View.VISIBLE &&
+                checkboxShareHabit.isChecked() &&
+                currentUsername != null &&
+                currentUserUid != null &&
+                isInternetAvailable()) {
+
+            Map<String, Object> sharedHabit = new HashMap<>();
+            sharedHabit.put("habitName", habitName);
+            sharedHabit.put("description", habitDescription);
+            sharedHabit.put("goalValue", goalValue);
+            sharedHabit.put("measurement", measurementUnit);
+            sharedHabit.put("goalPeriod", goalPeriod);
+            sharedHabit.put("habitType", selectedHabitType);
+            sharedHabit.put("sharedByUsername", currentUsername);
+            sharedHabit.put("sharedByUID", currentUserUid);
+            sharedHabit.put("sharedAt", com.google.firebase.firestore.FieldValue.serverTimestamp());
+
+            FirebaseFirestore.getInstance()
+                    .collection("sharedHabits")
+                    .add(sharedHabit)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, getString(R.string.habit_saved_offline_and_shared), Toast.LENGTH_SHORT).show();
+                        restartActivity();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, getString(R.string.habit_saved_but_share_failed), Toast.LENGTH_LONG).show();
+                        restartActivity();
+                    });
+
+        } else {
+            Toast.makeText(this, getString(R.string.habit_saved_offline), Toast.LENGTH_SHORT).show();
+            restartActivity();
+        }
+    }
+
+    private void restartActivity() {
         Intent intent = getIntent();
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         startActivity(intent);
     }
-
 
     private void setupFooterNavigation() {
         findViewById(R.id.buttonSocial).setOnClickListener(v -> navigateTo(SocialActivity.class));
@@ -285,7 +347,6 @@ public class AddHabitActivity extends AppCompatActivity {
         findViewById(R.id.buttonSettings).setOnClickListener(v -> navigateTo(SettingsActivity.class));
     }
 
-
     private void navigateTo(Class<?> targetActivity) {
         Intent intent = new Intent(this, targetActivity);
         startActivity(intent);
@@ -293,13 +354,11 @@ public class AddHabitActivity extends AppCompatActivity {
         finish();
     }
 
-
     @Override
     protected void onResume(){
         super.onResume();
         applyFullScreenMode();
     }
-
 
     private void applyFullScreenMode() {
         getWindow().getDecorView().setSystemUiVisibility(
@@ -311,7 +370,6 @@ public class AddHabitActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -319,4 +377,11 @@ public class AddHabitActivity extends AppCompatActivity {
             applyFullScreenMode();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkReceiver);
+    }
+
 }

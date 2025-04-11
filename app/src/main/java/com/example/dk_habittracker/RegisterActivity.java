@@ -4,45 +4,45 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-
     private EditText editTextEmail, editTextPassword, editTextConfirmPassword, editTextNickname;
     private TextView textEmailStatus, textNicknameStatus, textPasswordStatus, textConfirmPasswordStatus;
-    private Button buttonRegister, buttonGoBack;
-
     private boolean isEmailAvailable = false;
     private boolean isNicknameAvailable = false;
-
     private AlertDialog noInternetDialog;
     private boolean isDialogVisible = false;
     private boolean wasInSettings = false;
-
     private boolean isPasswordStrong = false;
     private boolean isPasswordConfirmed = false;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
         textPasswordStatus = findViewById(R.id.textPasswordStatus);
         textConfirmPasswordStatus = findViewById(R.id.textConfirmPasswordStatus);
 
-        buttonRegister = findViewById(R.id.buttonRegister);
-        buttonGoBack = findViewById(R.id.buttonGoBack);
-
+        Button buttonRegister = findViewById(R.id.buttonRegister);
+        Button buttonGoBack = findViewById(R.id.buttonGoBack);
         registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         if (!isInternetAvailable()) {
@@ -86,26 +85,34 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         });
 
-
-        // Real-time Email Availability Check
         editTextEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().trim().isEmpty()) {
-                    checkEmailAvailability(s.toString().trim());
-                } else {
+                String emailInput = s.toString().trim();
+
+                if (emailInput.isEmpty()) {
                     textEmailStatus.setText("");
+                    isEmailAvailable = false;
+                    return;
                 }
+
+                if (!isValidEmailFormat(emailInput)) {
+                    textEmailStatus.setText(getString(R.string.invalid_email_format));
+                    textEmailStatus.setTextColor(ContextCompat.getColor(RegisterActivity.this, android.R.color.holo_red_dark));
+                    isEmailAvailable = false;
+                    return;
+                }
+
+                checkEmailAvailability(emailInput);
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
-        // Real-time Nickname Availability Check
         editTextNickname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -123,7 +130,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Real-time Password Strength Check
         editTextPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -138,7 +144,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Real-time Password Confirmation Check
         editTextConfirmPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -156,8 +161,62 @@ public class RegisterActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        // Register Button Click
+        ImageView buttonPeekPassword = findViewById(R.id.buttonPeekPassword);
+        ImageView buttonPeekConfirm = findViewById(R.id.buttonPeekConfirm);
+
+        final boolean[] isPasswordVisible = {false};
+        final boolean[] isConfirmVisible = {false};
+
+        buttonPeekPassword.setOnClickListener(v -> {
+            isPasswordVisible[0] = !isPasswordVisible[0];
+
+            if (isPasswordVisible[0]) {
+                editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                buttonPeekPassword.setImageResource(R.drawable.ic_eye_open);
+            } else {
+                editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                buttonPeekPassword.setImageResource(R.drawable.ic_eye_closed);
+            }
+
+            editTextPassword.setSelection(editTextPassword.getText().length());
+            editTextPassword.setTypeface(Typeface.DEFAULT);
+        });
+
+        buttonPeekConfirm.setOnClickListener(v -> {
+            isConfirmVisible[0] = !isConfirmVisible[0];
+
+            if (isConfirmVisible[0]) {
+                editTextConfirmPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                buttonPeekConfirm.setImageResource(R.drawable.ic_eye_open);
+            } else {
+                editTextConfirmPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                buttonPeekConfirm.setImageResource(R.drawable.ic_eye_closed);
+            }
+
+            editTextConfirmPassword.setSelection(editTextConfirmPassword.getText().length());
+            editTextConfirmPassword.setTypeface(Typeface.DEFAULT);
+        });
+
         buttonRegister.setOnClickListener(view -> registerUser());
+
+        View.OnFocusChangeListener fullscreenFocusListener = (v, hasFocus) -> {
+            if (hasFocus) {
+                setFullScreenMode();
+            }
+        };
+
+        editTextNickname.setOnFocusChangeListener(fullscreenFocusListener);
+        editTextEmail.setOnFocusChangeListener(fullscreenFocusListener);
+        editTextPassword.setOnFocusChangeListener(fullscreenFocusListener);
+        editTextConfirmPassword.setOnFocusChangeListener(fullscreenFocusListener);
+
+        final View rootView = findViewById(android.R.id.content);
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
+            if (heightDiff < 200) {
+                setFullScreenMode();
+            }
+        });
     }
 
     private final BroadcastReceiver networkReceiver = new BroadcastReceiver() {
@@ -172,15 +231,30 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
+    private void setFullScreenMode() {
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
+    }
 
     private void registerUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-        String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String nickname = editTextNickname.getText().toString().trim();
+        Log.d("RegisterDebug", "email=\"" + email);
 
         if (email.isEmpty() || password.isEmpty() || nickname.isEmpty()) {
             Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!isValidEmailFormat(email)) {
+            Toast.makeText(this, getString(R.string.invalid_email_format), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -204,17 +278,13 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        //Register User with Firebase Authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
-                        //Get UID before sign-out
                         String userId = mAuth.getCurrentUser().getUid();
 
-                        //Save user data to Firestore **before signing out**
                         saveUserToFirestore(userId, email, nickname, () -> {
 
-                            //Send Email Verification only AFTER Firestore Save
                             mAuth.getCurrentUser().sendEmailVerification()
                                     .addOnCompleteListener(verificationTask -> {
                                         if (verificationTask.isSuccessful()) {
@@ -227,10 +297,8 @@ public class RegisterActivity extends AppCompatActivity {
                                                     Toast.LENGTH_SHORT).show();
                                         }
 
-                                        //Safe to log out
                                         mAuth.signOut();
 
-                                        //Redirect to LoginActivity
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         startActivity(intent);
                                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -238,8 +306,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
                         });
                     } else {
+                        String errorMessage = (task.getException() != null) ? task.getException().getMessage() : getString(R.string.unknown_error);
                         Toast.makeText(RegisterActivity.this,
-                                getString(R.string.registration_failed, task.getException().getMessage()),
+                                getString(R.string.registration_failed, errorMessage),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -253,7 +322,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         db.collection("users").document(userId).set(userMap)
                 .addOnSuccessListener(aVoid -> {
-                    //Send email and log-out
                     onSuccess.run();
                 })
                 .addOnFailureListener(e ->
@@ -263,13 +331,17 @@ public class RegisterActivity extends AppCompatActivity {
                 );
     }
 
+    private boolean isValidEmailFormat(String email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 
-    //Check Email Availability in Firebase Authentication + Firestore
+    @SuppressWarnings("deprecation")
     private void checkEmailAvailability(String email) {
         mAuth.fetchSignInMethodsForEmail(email)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
-                        boolean isEmailTakenAuth = !task.getResult().getSignInMethods().isEmpty();
+                        List<String> signInMethods = task.getResult().getSignInMethods();
+                        boolean isEmailTakenAuth = signInMethods != null && !signInMethods.isEmpty();
 
                         db.collection("users").whereEqualTo("email", email).get()
                                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -277,11 +349,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                                     if (isEmailTakenAuth || isEmailTakenFirestore) {
                                         textEmailStatus.setText(getString(R.string.email_taken));
-                                        textEmailStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                                        textEmailStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
                                         isEmailAvailable = false;
                                     } else {
                                         textEmailStatus.setText(getString(R.string.email_available));
-                                        textEmailStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                                        textEmailStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
                                         isEmailAvailable = true;
                                     }
                                 });
@@ -289,55 +361,49 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-    //Check Nickname Availability in Firestore
     private void checkNicknameAvailability(String nickname) {
         db.collection("users").whereEqualTo("nickname", nickname).get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         textNicknameStatus.setText(getString(R.string.nickname_taken));
-                        textNicknameStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                        textNicknameStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
                         isNicknameAvailable = false;
                     } else {
                         textNicknameStatus.setText(getString(R.string.nickname_available));
-                        textNicknameStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                        textNicknameStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
                         isNicknameAvailable = true;
                     }
 
                 });
     }
 
-
-    //Check Password Strength
     private void checkPasswordStrength(String password) {
         if (password.length() < 8) {
             textPasswordStatus.setText(getString(R.string.weak_password));
-            textPasswordStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            isPasswordStrong = false; //Weak password
+            textPasswordStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+            isPasswordStrong = false;
         } else if (!password.matches(".*[A-Z].*") || !password.matches(".*[0-9].*")) {
             textPasswordStatus.setText(getString(R.string.medium_password));
-            textPasswordStatus.setTextColor(getResources().getColor(android.R.color.holo_blue_dark));
-            isPasswordStrong = false; //Medium password still not acceptable
+            textPasswordStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_blue_dark));
+            isPasswordStrong = false;
         } else {
             textPasswordStatus.setText(getString(R.string.strong_password));
-            textPasswordStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-            isPasswordStrong = true; //Only strong passwords are accepted
+            textPasswordStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            isPasswordStrong = true;
         }
     }
 
-
-    //Check Password Confirmation
     private void checkPasswordMatch() {
         if (editTextPassword.getText().toString().equals(editTextConfirmPassword.getText().toString())) {
             textConfirmPasswordStatus.setText(getString(R.string.password_match));
-            textConfirmPasswordStatus.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-            isPasswordConfirmed = true; //Passwords match
+            textConfirmPasswordStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            isPasswordConfirmed = true;
         } else {
             textConfirmPasswordStatus.setText(getString(R.string.password_no_match));
-            textConfirmPasswordStatus.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            isPasswordConfirmed = false; //Passwords don't match
+            textConfirmPasswordStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+            isPasswordConfirmed = false;
         }
     }
-
 
     private void showNoInternetDialog() {
         if (noInternetDialog == null || !noInternetDialog.isShowing()) {
@@ -390,12 +456,17 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isInternetAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm != null) {
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnected();
-        }
-        return false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) return false;
+
+        android.net.Network network = connectivityManager.getActiveNetwork();
+        if (network == null) return false;
+
+        android.net.NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
+        return capabilities != null &&
+                (capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET));
     }
 
 }

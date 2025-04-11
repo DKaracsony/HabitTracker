@@ -1,16 +1,20 @@
 package com.example.dk_habittracker;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -26,11 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private AlertDialog noInternetDialog;
     private boolean isDialogVisible = false;
-
     private EditText editTextEmail, editTextPassword;
-    private Button buttonLogin;
 
-    // Activity Result Launcher for WiFi settings
     private final ActivityResultLauncher<Intent> wifiSettingsLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (!isInternetAvailable()) {
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +63,9 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
 
-        //For Keyboard Visibility
+        Button buttonLogin = findViewById(R.id.buttonLogin);
+
         setKeyboardListener();
 
         Button buttonGoBack = findViewById(R.id.buttonGoBack);
@@ -75,6 +77,23 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
 
+        ImageView buttonPeek = findViewById(R.id.buttonPeek);
+        final boolean[] isPasswordVisible = {false};
+
+        buttonPeek.setOnClickListener(v -> {
+            isPasswordVisible[0] = !isPasswordVisible[0];
+
+            if (isPasswordVisible[0]) {
+                editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                buttonPeek.setImageResource(R.drawable.ic_eye_open);
+            } else {
+                editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                buttonPeek.setImageResource(R.drawable.ic_eye_closed);
+            }
+
+            editTextPassword.setSelection(editTextPassword.getText().length());
+            editTextPassword.setTypeface(Typeface.DEFAULT);
+        });
 
         buttonGoBack.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, StartActivity.class);
@@ -82,7 +101,6 @@ public class LoginActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             finish();
         });
-
 
         buttonRegister.setOnClickListener(view -> {
             if (isInternetAvailable()) {
@@ -94,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                 showNoInternetDialog();
             }
         });
-
 
         buttonLogin.setOnClickListener(view -> loginUser());
 
@@ -111,7 +128,6 @@ public class LoginActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -127,9 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
                             Toast.makeText(LoginActivity.this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-                            // Ensure full-screen mode before transition
                             setFullScreenMode();
-                            // To MyHabitsActivity
                             Intent intent = new Intent(LoginActivity.this, MyHabitsActivity.class);
                             startActivity(intent);
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -139,17 +153,34 @@ public class LoginActivity extends AppCompatActivity {
                             mAuth.signOut();
                         }
                     } else {
-                        Toast.makeText(LoginActivity.this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+                        Exception e = task.getException();
+                        if (e != null) {
+                            android.util.Log.e("LoginDebug", "Login failed: " + e.getMessage());
+                        }
+
+                        SharedPreferences prefs = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+                        String lang = prefs.getString("My_Lang", "en");
+
+                        String errorMsg = lang.equals("sk")
+                                ? "Prihlásenie zlyhalo. Skontrolujte e-mail a heslo."
+                                : "Login failed. Please check your email and password.";
+
+                        Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-
     private boolean isInternetAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnected();
+            android.net.Network network = cm.getActiveNetwork();
+            if (network != null) {
+                android.net.NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+                return capabilities != null &&
+                        (capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) ||
+                                capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                                capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET));
+            }
         }
         return false;
     }
@@ -158,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         final View rootView = findViewById(android.R.id.content);
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
-            if (heightDiff < 200) { // Keyboard is likely hidden
+            if (heightDiff < 200) {
                 setFullScreenMode();
             }
         });
@@ -215,6 +246,4 @@ public class LoginActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
-
-
 }

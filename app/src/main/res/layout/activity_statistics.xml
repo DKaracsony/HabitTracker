@@ -2,118 +2,111 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFB16C">
+    android:background="#FFB16C"
+    android:orientation="vertical">
 
     <!-- Black Bar at the Top (Header) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical">
+        android:paddingStart="20dp">
 
-        <!-- Title Text "Statistics" -->
         <TextView
             android:id="@+id/textStatistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/statistics"
+            android:textColor="@android:color/holo_orange_dark"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_orange_dark" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Scrollable Main Content -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewStatistics"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Daily Statistics Section -->
+            <!-- 📅 Daily Statistics Section -->
             <TextView
                 android:id="@+id/dailyStatsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#FF8800"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="@string/daily_stats_title"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
-
+                android:textStyle="bold" />
 
             <CalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:dateTextAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginBottom="20dp"
                 android:focusedMonthDateColor="@color/light_orange"
-                android:weekSeparatorLineColor="@android:color/black"/>
+                android:weekSeparatorLineColor="@android:color/black" />
 
-            <!-- General Statistics Section -->
-
+            <!-- 📊 Followed Habits Section -->
             <TextView
-                android:id="@+id/generalTitle"
+                android:id="@+id/followedHabitsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#FF8800"
-                android:text="@string/general_stats_title"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"/>
-
-            <Button
-                android:id="@+id/buttonHabitList"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="@string/habit_list"
-                android:background="@color/light_orange"
+                android:paddingEnd="16dp"
+                android:text="@string/followed_habits"
                 android:textColor="@android:color/white"
-                android:padding="12dp"
                 android:textSize="18sp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"/>
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/buttonGeneralStats"
-                android:layout_width="250dp"
+            <!-- 🚨 Message if no habits exist -->
+            <TextView
+                android:id="@+id/textViewNoHabitsMessage"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/general_statistics"
-                android:background="@color/light_orange"
-                android:textColor="@android:color/white"
-                android:padding="12dp"
-                android:textSize="18sp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="25dp"/>
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/no_habits_message"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:visibility="gone" />
 
-
+            <!-- 📋 RecyclerView for All Habits -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFollowedHabits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:padding="10dp"
+                android:scrollbars="none" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-
-    </ScrollView>
-
-    <!-- Footer -->
+    <!-- Footer Navigation -->
     <LinearLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:weightSum="5">
 
         <Button
@@ -122,10 +115,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba47"
+            android:drawableTop="@drawable/social_icon"
+            android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="18dp"
-            android:drawablePadding="0dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonStatistics"
@@ -133,10 +126,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/darker_gray"
-            android:drawableTop="@drawable/proba19"
+            android:drawableTop="@drawable/statistics_icon"
             android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="18dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonAddHabit"
@@ -147,8 +140,7 @@
             android:drawableTop="@drawable/icon_add"
             android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="16dp"
-            android:layout_gravity="center"/>
+            android:paddingVertical="16dp" />
 
         <Button
             android:id="@+id/buttonMyHabits"
@@ -156,10 +148,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba12"
+            android:drawableTop="@drawable/habits_icon"
             android:drawablePadding="0dp"
-            android:paddingVertical="18dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonSettings"
@@ -167,11 +159,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/asdasd"
+            android:drawableTop="@drawable/settings_icon"
             android:drawablePadding="0dp"
-            android:paddingVertical="18dp"
-            android:gravity="center"/>
-
+            android:gravity="center"
+            android:paddingVertical="18dp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFB16C">
+    android:background="#FFB16C"
+    android:orientation="vertical">
 
     <!-- Black Bar at the Top (Header) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical">
+        android:paddingStart="20dp">
 
         <TextView
             android:id="@+id/textSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings"
+            android:textColor="@android:color/holo_orange_dark"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/holo_orange_dark" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <!-- Scrollable Content -->
@@ -42,30 +42,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#FF8800"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
                 android:text="@string/user_preferences"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:paddingStart="16dp"/>
+                android:textStyle="bold" />
 
             <!-- Language Selection Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:padding="16dp">
 
                 <TextView
                     android:id="@+id/textLanguageSelection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="45dp"
                     android:text="@string/language_selection"
-                    android:textSize="20sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="45dp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -76,24 +76,135 @@
                         android:id="@+id/buttonLanguageSK"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:text="SK"
                         android:background="@color/light_orange"
-                        android:textColor="@android:color/white"
                         android:padding="12dp"
-                        android:layout_marginEnd="10dp" />
+                        android:text="SK"
+                        android:textColor="@android:color/white" />
 
                     <Button
                         android:id="@+id/buttonLanguageEN"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="EN"
                         android:background="@color/light_orange"
-                        android:textColor="@android:color/white"
-                        android:padding="12dp"/>
+                        android:padding="12dp"
+                        android:text="EN"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Reminder Toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/reminder_label"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchReminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <!-- Time Picker Row (Initially Hidden) -->
+            <LinearLayout
+                android:id="@+id/reminderTimeSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textReminderTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/select_reminder_time"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/buttonPickTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_orange"
+                    android:text="@string/pick_time"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <!-- Reset All Progress Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/reset_progress_info"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonResetProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_orange"
+                    android:padding="8dp"
+                    android:text="@string/reset_progress"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Delete All Habits Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_habits_info"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buttonDeleteHabits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_orange"
+                    android:padding="8dp"
+                    android:text="@string/delete_habits"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
 
             <!-- User Settings Section Header -->
             <TextView
@@ -101,12 +212,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="#FF8800"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
                 android:text="@string/user_details"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:paddingStart="16dp"/>
+                android:textStyle="bold" />
 
             <!-- User Details Section -->
             <LinearLayout
@@ -114,36 +225,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
                 android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:padding="16dp"
+                    android:text="@string/username_placeholder"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:text="@string/username_placeholder"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"
+                    android:layout_marginBottom="15dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="@string/email_placeholder"
-                    android:layout_marginBottom="10dp"/>
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
 
                 <!-- Log Out Button -->
                 <Button
                     android:id="@+id/buttonLogout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@color/light_orange"
+                    android:padding="12dp"
                     android:text="@string/logout"
-                    android:background="@android:color/darker_gray"
                     android:textColor="@android:color/white"
-                    android:padding="12dp"/>
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
             <!-- UUID Display (shown when offline) -->
@@ -151,12 +268,26 @@
                 android:id="@+id/textUUID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:visibility="gone"
-                android:padding="16dp"/>
+                android:padding="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Return to StartActivity Button (offline only) -->
+            <Button
+                android:id="@+id/buttonReturnToStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/light_orange"
+                android:padding="12dp"
+                android:text="@string/return_to_start"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
@@ -166,8 +297,8 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@android:color/black"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         android:weightSum="5">
 
         <Button
@@ -176,10 +307,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba47"
+            android:drawableTop="@drawable/social_icon"
+            android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="18dp"
-            android:drawablePadding="0dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonStatistics"
@@ -187,22 +318,22 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba19"
+            android:drawableTop="@drawable/statistics_icon"
             android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="18dp"/>
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonAddHabit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@color/black"
             android:drawableTop="@drawable/icon_add"
             android:drawablePadding="0dp"
             android:gravity="center"
-            android:paddingVertical="16dp"
-            android:layout_gravity="center"/>
+            android:paddingVertical="16dp" />
 
         <Button
             android:id="@+id/buttonMyHabits"
@@ -210,10 +341,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/black"
-            android:drawableTop="@drawable/proba12"
+            android:drawableTop="@drawable/habits_icon"
             android:drawablePadding="0dp"
-            android:paddingVertical="18dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingVertical="18dp" />
 
         <Button
             android:id="@+id/buttonSettings"
@@ -221,10 +352,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/darker_gray"
-            android:drawableTop="@drawable/asdasd"
+            android:drawableTop="@drawable/settings_icon"
             android:drawablePadding="0dp"
-            android:paddingVertical="18dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:paddingVertical="18dp" />
     </LinearLayout>
 
 </LinearLayout>

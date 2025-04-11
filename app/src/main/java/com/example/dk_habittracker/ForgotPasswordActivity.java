@@ -5,25 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
-    private Button buttonResetPassword, buttonGoBack;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-
     private AlertDialog noInternetDialog;
     private boolean isDialogVisible = false;
     private boolean wasInSettings = false;
@@ -50,13 +49,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         editTextEmail = findViewById(R.id.editTextForgotPasswordEmail);
-        buttonResetPassword = findViewById(R.id.buttonResetPassword);
-        buttonGoBack = findViewById(R.id.buttonGoBackForgot);
 
-        // Register network receiver
         registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-        // Handle Password Reset
+        Button buttonResetPassword = findViewById(R.id.buttonResetPassword);
         buttonResetPassword.setOnClickListener(view -> {
             if (isInternetAvailable()) {
                 checkIfEmailExists();
@@ -65,21 +61,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        // Go Back Button
+        Button buttonGoBack = findViewById(R.id.buttonGoBackForgot);
         buttonGoBack.setOnClickListener(view -> {
             Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish(); // Close ForgotPasswordActivity
+            finish();
         });
 
-
-        // Show pop-up immediately if there is no internet (Possibly removing it sicne Receiver is registered)
         if (!isInternetAvailable()) {
             showNoInternetDialog();
         }
 
-        //FS
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -120,15 +113,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(ForgotPasswordActivity.this,
                                 getString(R.string.password_reset_sent), Toast.LENGTH_LONG).show();
-                        // ✅ Redirect to LoginActivity
                         Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-                        finish(); // Close ForgotPasswordActivity
+                        finish();
                     } else {
                         Toast.makeText(ForgotPasswordActivity.this,
-                                getString(R.string.password_reset_failed, task.getException().getMessage()),
+                                getString(R.string.password_reset_failed,
+                                        task.getException() != null ? task.getException().getMessage() : R.string.unknown_error),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -170,7 +163,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         if (wasInSettings && !isInternetAvailable()) {
             showNoInternetDialog();
         }
-        wasInSettings = false; // Reset flag
+        wasInSettings = false;
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -189,8 +182,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private boolean isInternetAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {
-            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnected();
+            android.net.Network network = cm.getActiveNetwork();
+            if (network == null) return false;
+
+            android.net.NetworkCapabilities capabilities = cm.getNetworkCapabilities(network);
+            return capabilities != null && (
+                            capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) ||
+                            capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                            capabilities.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET)
+            );
         }
         return false;
     }

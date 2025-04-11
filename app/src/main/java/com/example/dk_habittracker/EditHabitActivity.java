@@ -1,14 +1,7 @@
 package com.example.dk_habittracker;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,31 +11,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Arrays;
-import java.util.List;
+import androidx.core.content.ContextCompat;
 
 public class EditHabitActivity extends AppCompatActivity {
-
-    //Possible Future Network Features
-    private boolean isOfflineMode;
-    private AlertDialog noInternetDialog;
-    private boolean isDialogVisible = false;
 
     private EditText editTextHabitName, editTextHabitDescription, editTextGoalValue, editTextCustomMeasurement;
     private Spinner spinnerGoalPeriod, spinnerMeasurementUnit;
     private TextView textViewMeasurementPeriod;
-    private Button buttonSaveHabit, buttonCancelEditing;
     private Button buttonBuildHabit, buttonQuitHabit;
     private String selectedHabitType;
-
     private DBHelper dbHelper;
     private Habit habit;
-
     private int habitId;
 
     @Override
@@ -64,7 +45,6 @@ public class EditHabitActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        // Initialize UI Elements
         editTextHabitName = findViewById(R.id.editTextHabitName);
         editTextHabitDescription = findViewById(R.id.editTextHabitDescription);
         editTextGoalValue = findViewById(R.id.editTextGoalValue);
@@ -74,8 +54,8 @@ public class EditHabitActivity extends AppCompatActivity {
         textViewMeasurementPeriod = findViewById(R.id.textViewMeasurementPeriod);
         buttonBuildHabit = findViewById(R.id.buttonBuildHabit);
         buttonQuitHabit = findViewById(R.id.buttonQuitHabit);
-        buttonSaveHabit = findViewById(R.id.buttonSaveHabit);
-        buttonCancelEditing = findViewById(R.id.buttonCancelEditing);
+        Button buttonSaveHabit = findViewById(R.id.buttonSaveHabit);
+        Button buttonCancelEditing = findViewById(R.id.buttonCancelEditing);
 
         buttonSaveHabit.setOnClickListener(v -> saveHabit());
         buttonCancelEditing.setOnClickListener(v -> {
@@ -85,7 +65,6 @@ public class EditHabitActivity extends AppCompatActivity {
             finish();
         });
 
-        // Handle Measurement Type Selection
         spinnerMeasurementUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,27 +76,21 @@ public class EditHabitActivity extends AppCompatActivity {
                     editTextCustomMeasurement.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        //TV Synchronization
         setupGoalPeriodSynchronization();
 
-        // Load habit details
         loadHabitData();
 
-        // Get reference to the header TextView
         TextView textHeaderHabitName = findViewById(R.id.textHeaderHabitName);
 
-        // Get habit name and apply truncation if it's longer than 15 characters
         String habitNameHeader = habit.getName();
         if (habitNameHeader.length() > 15) {
             habitNameHeader = habitNameHeader.substring(0, 15) + "...";
         }
 
-        // Set the truncated name as the header
         textHeaderHabitName.setText(habitNameHeader);
 
         setupFooterNavigation();
@@ -125,14 +98,13 @@ public class EditHabitActivity extends AppCompatActivity {
         applyFullScreenMode();
     }
 
-    //LEAVE IT IN!!!
+    @SuppressWarnings("unused") // Itthagyni, ha lesz idő változtatni a return logikát!!!
     private void returnToHabitDetail() {
         Intent intent = new Intent();
         intent.putExtra("habit_id", habitId);
         setResult(RESULT_CANCELED, intent);
         finish();
     }
-
 
     private void setupGoalPeriodSynchronization() {
         spinnerGoalPeriod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -141,33 +113,25 @@ public class EditHabitActivity extends AppCompatActivity {
                 String selectedPeriod = parent.getItemAtPosition(position).toString();
                 switch (selectedPeriod) {
                     case "Daily":
-                        textViewMeasurementPeriod.setText("/Daily");
+                    case "Denne":
+                        textViewMeasurementPeriod.setText(getString(R.string.period_daily));
                         break;
                     case "Weekly":
-                        textViewMeasurementPeriod.setText("/Weekly");
+                    case "Týždenne":
+                        textViewMeasurementPeriod.setText(getString(R.string.period_weekly));
                         break;
                     case "Monthly":
-                        textViewMeasurementPeriod.setText("/Monthly");
-                        break;
-                    case "Denne":
-                        textViewMeasurementPeriod.setText("/Denne");
-                        break;
-                    case "Týždenne":
-                        textViewMeasurementPeriod.setText("/Týždenne");
-                        break;
                     case "Mesačne":
-                        textViewMeasurementPeriod.setText("/Mesačne");
+                        textViewMeasurementPeriod.setText(getString(R.string.period_monthly));
                         break;
                     default:
                         textViewMeasurementPeriod.setText("");
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
-
 
     private void loadHabitData() {
         if (habitId == -1) {
@@ -183,41 +147,38 @@ public class EditHabitActivity extends AppCompatActivity {
             return;
         }
 
-        // Prefill the UI with habit data
         editTextHabitName.setText(habit.getName());
         editTextHabitDescription.setText(habit.getDescription());
         editTextGoalValue.setText(String.valueOf(habit.getGoal()));
         selectedHabitType = habit.getHabitType();
 
         if (selectedHabitType.equals("Build")) {
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         } else {
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         }
 
-        // Make buttons functional
         buttonBuildHabit.setOnClickListener(v -> {
             selectedHabitType = "Build";
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         });
 
         buttonQuitHabit.setOnClickListener(v -> {
             selectedHabitType = "Quit";
-            buttonQuitHabit.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
-            buttonBuildHabit.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+            buttonQuitHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+            buttonBuildHabit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
         });
 
-        // Load spinner data for Goal Period
+
         ArrayAdapter<CharSequence> periodAdapter = ArrayAdapter.createFromResource(this,
                 R.array.goal_period_options, android.R.layout.simple_spinner_item);
         periodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGoalPeriod.setAdapter(periodAdapter);
 
-        // Convert stored goal period from English to Slovak if needed
-        String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+        String currentLanguage = getResources().getConfiguration().getLocales().get(0).getLanguage();
         String localizedGoalPeriod = habit.getGoalPeriod();
 
         if (currentLanguage.equals("sk")) {
@@ -228,18 +189,15 @@ public class EditHabitActivity extends AppCompatActivity {
             }
         }
 
-        // Set the correct selection in the spinner
         int periodPosition = periodAdapter.getPosition(localizedGoalPeriod);
         spinnerGoalPeriod.setSelection(periodPosition);
 
-        // Load localized measurement units based on language
         int measurementArray = currentLanguage.equals("sk") ? R.array.measurement_units_sk : R.array.measurement_units;
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(
                 this, measurementArray, android.R.layout.simple_spinner_item);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerMeasurementUnit.setAdapter(unitAdapter);
 
-        // Convert stored measurement unit from English to Slovak if needed
         String localizedMeasurementUnit = habit.getMeasurementUnit();
         if (currentLanguage.equals("sk")) {
             switch (habit.getMeasurementUnit()) {
@@ -254,18 +212,15 @@ public class EditHabitActivity extends AppCompatActivity {
             }
         }
 
-        // If the measurement type is not predefined, treat it as custom
         int unitPosition = unitAdapter.getPosition(localizedMeasurementUnit);
         if (unitPosition == -1) {
-            // Show the custom measurement field and set "Custom/Vlastné" in the spinner
             localizedMeasurementUnit = currentLanguage.equals("sk") ? "Vlastné" : "Custom";
-            editTextCustomMeasurement.setText(habit.getMeasurementUnit()); // Set the actual custom value
+            editTextCustomMeasurement.setText(habit.getMeasurementUnit());
             editTextCustomMeasurement.setVisibility(View.VISIBLE);
         } else {
             editTextCustomMeasurement.setVisibility(View.GONE);
         }
 
-        // Set the correct selection in the spinner
         spinnerMeasurementUnit.setSelection(unitAdapter.getPosition(localizedMeasurementUnit));
 
         setupGoalPeriodSynchronization();
@@ -295,16 +250,14 @@ public class EditHabitActivity extends AppCompatActivity {
             return;
         }
 
-        // Convert Slovak goal period to English before saving
         final String goalPeriod;
         switch (goalPeriodSelected) {
             case "Denne": goalPeriod = "Daily"; break;
             case "Týždenne": goalPeriod = "Weekly"; break;
             case "Mesačne": goalPeriod = "Monthly"; break;
-            default: goalPeriod = goalPeriodSelected; // If already in English
+            default: goalPeriod = goalPeriodSelected;
         }
 
-        // Convert Slovak measurement unit to English before saving
         final String measurementUnit;
         switch (measurementUnitSelected) {
             case "Krát": measurementUnit = "Times"; break;
@@ -316,14 +269,13 @@ public class EditHabitActivity extends AppCompatActivity {
             case "sek": measurementUnit = "sec"; break;
             case "hoď": measurementUnit = "hr"; break;
             case "Vlastné": measurementUnit = "Custom"; break;
-            default: measurementUnit = measurementUnitSelected; // If already in English
+            default: measurementUnit = measurementUnitSelected;
         }
 
-        // Handle custom measurement unit
         final String finalMeasurementUnit;
         if (measurementUnit.equals("Custom")) {
             if (!customMeasurement.isEmpty()) {
-                finalMeasurementUnit = customMeasurement.trim(); // Save custom input
+                finalMeasurementUnit = customMeasurement.trim();
             } else {
                 Toast.makeText(this, getString(R.string.enter_custom_measurement), Toast.LENGTH_SHORT).show();
                 return;
@@ -332,12 +284,10 @@ public class EditHabitActivity extends AppCompatActivity {
             finalMeasurementUnit = measurementUnit;
         }
 
-        // Show confirmation dialog before deleting progress
         new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.modify_habit_title))
                 .setMessage(getString(R.string.modify_habit_message))
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-                    // Delete progress before updating habit
                     dbHelper.deleteHabitProgress(habitId);
 
                     // Update habit data
@@ -352,7 +302,6 @@ public class EditHabitActivity extends AppCompatActivity {
 
                     Toast.makeText(this, getString(R.string.habit_updated), Toast.LENGTH_SHORT).show();
 
-                    // Return to MyHabitsActivity after saving
                     Intent intent = new Intent(EditHabitActivity.this, MyHabitsActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

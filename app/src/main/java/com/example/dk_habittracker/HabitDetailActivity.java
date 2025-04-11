@@ -1,6 +1,5 @@
 package com.example.dk_habittracker;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,21 +7,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HabitDetailActivity extends AppCompatActivity {
 
-    private TextView textHabitName, textHabitDescription, textHabitGoal, textHabitType, textGoalPeriod, textMeasurement;
     private TextView textCurrentProgress;
-    private Button buttonIncrease, buttonDecrease, buttonSave, buttonDelete, buttonCancel, buttonEditHabit;
-
     private DBHelper dbHelper;
     private Habit habit;
     private int currentProgress;
     private String selectedDate;
     private EditText editTextManualProgress;
-    private Button buttonAddManualProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +27,6 @@ public class HabitDetailActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        // Retrieve habit ID and selected date
         int habitId = getIntent().getIntExtra("habit_id", -1);
         selectedDate = getIntent().getStringExtra("selected_date");
 
@@ -41,7 +36,6 @@ public class HabitDetailActivity extends AppCompatActivity {
             return;
         }
 
-        // Fetch habit from database
         habit = dbHelper.getHabitById(habitId);
         if (habit == null) {
             Toast.makeText(this, "Habit not found.", Toast.LENGTH_SHORT).show();
@@ -49,29 +43,27 @@ public class HabitDetailActivity extends AppCompatActivity {
             return;
         }
 
-        // Initialize UI
-        textHabitName = findViewById(R.id.textHeaderHabitName);
-        textHabitDescription = findViewById(R.id.textHabitDescription);
-        textHabitGoal = findViewById(R.id.textHabitGoal);
-        textHabitType = findViewById(R.id.textHabitType);
-        textGoalPeriod = findViewById(R.id.textGoalPeriod);
-        textMeasurement = findViewById(R.id.textMeasurement);
+        TextView textHabitName = findViewById(R.id.textHeaderHabitName);
+        TextView textHabitDescription = findViewById(R.id.textHabitDescription);
+        TextView textHabitGoal = findViewById(R.id.textHabitGoal);
+        TextView textHabitType = findViewById(R.id.textHabitType);
+        TextView textGoalPeriod = findViewById(R.id.textGoalPeriod);
+        TextView textMeasurement = findViewById(R.id.textMeasurement);
+
         textCurrentProgress = findViewById(R.id.textCurrentProgress);
-        buttonEditHabit = findViewById(R.id.buttonEditHabit);
 
-        buttonIncrease = findViewById(R.id.buttonIncrease);
-        buttonDecrease = findViewById(R.id.buttonDecrease);
+        Button buttonIncrease = findViewById(R.id.buttonIncrease);
+        Button buttonDecrease = findViewById(R.id.buttonDecrease);
+        Button buttonSave = findViewById(R.id.buttonSave);
+        Button buttonDelete = findViewById(R.id.buttonDelete);
+        Button buttonCancel = findViewById(R.id.buttonCancel);
+        Button buttonEditHabit = findViewById(R.id.buttonEditHabit);
+        Button buttonAddManualProgress = findViewById(R.id.buttonAddManualProgress);
+
         editTextManualProgress = findViewById(R.id.editTextManualProgress);
-        buttonAddManualProgress = findViewById(R.id.buttonAddManualProgress);
-        buttonSave = findViewById(R.id.buttonSave);
-        buttonDelete = findViewById(R.id.buttonDelete);
-        buttonCancel = findViewById(R.id.buttonCancel);
-
-        // Prevent editTextManualProgress from being auto-focused
         editTextManualProgress.setFocusable(false);
         editTextManualProgress.setFocusableInTouchMode(true);
 
-        // Set a focus change listener to reapply full-screen mode when focus is lost
         editTextManualProgress.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 applyFullScreenMode();
@@ -80,28 +72,23 @@ public class HabitDetailActivity extends AppCompatActivity {
 
         View rootView = getWindow().getDecorView().findViewById(android.R.id.content);
 
-        // Ensure full-screen mode when the keyboard is hidden
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
-            if (heightDiff < 200) { // Keyboard is hidden
+            if (heightDiff < 200) {
                 applyFullScreenMode();
             }
         });
 
-        // Clear focus from editTextManualProgress on activity start
         rootView.setFocusable(true);
         rootView.setFocusableInTouchMode(true);
         rootView.requestFocus();
 
-        // Set localized button texts
         buttonSave.setText(getString(R.string.save));
         buttonDelete.setText(getString(R.string.delete));
         buttonCancel.setText(getString(R.string.cancel));
 
-        // Get current language setting
-        String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+        String currentLanguage = getResources().getConfiguration().getLocales().get(0).getLanguage();
 
-        // Get habit name and apply truncation if it's longer than 10 characters
         String habitNameHeader = habit.getName();
         if (habitNameHeader.length() > 15) {
             habitNameHeader = habitNameHeader.substring(0, 15) + "...";
@@ -113,21 +100,16 @@ public class HabitDetailActivity extends AppCompatActivity {
 
             if (!inputText.isEmpty()) {
                 try {
-                    int addedValue = Integer.parseInt(inputText);
+                    int newValue = Integer.parseInt(inputText);
 
-                    if (addedValue <= 0) {
+                    if (newValue < 0 || newValue > 100000) {
                         Toast.makeText(HabitDetailActivity.this, getString(R.string.enter_reasonable_value), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if (addedValue > 100000) { // Limit the maximum input value
-                        Toast.makeText(HabitDetailActivity.this, getString(R.string.enter_reasonable_value), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    currentProgress += addedValue;
-                    textCurrentProgress.setText(getString(R.string.progress) + " " + currentProgress);
-                    editTextManualProgress.setText(""); // Clear input field
+                    currentProgress = newValue;
+                    textCurrentProgress.setText(getString(R.string.progress_with_value, currentProgress));
+                    editTextManualProgress.setText("");
 
                 } catch (NumberFormatException e) {
                     Toast.makeText(HabitDetailActivity.this, getString(R.string.enter_reasonable_value), Toast.LENGTH_SHORT).show();
@@ -145,19 +127,17 @@ public class HabitDetailActivity extends AppCompatActivity {
             finish();
         });
 
-        // Check if the habit has a description
         if (habit.getDescription().trim().isEmpty()) {
             textHabitDescription.setVisibility(View.GONE);
         } else {
-            textHabitDescription.setText(getString(R.string.description) + " " + habit.getDescription());
+            textHabitDescription.setText(getString(R.string.description_with_value, habit.getDescription()));
             textHabitDescription.setVisibility(View.VISIBLE);
         }
 
-        textHabitDescription.setText(getString(R.string.description) + " " + habit.getDescription());
-        textHabitGoal.setText(getString(R.string.goal) + " " + habit.getGoal());
-        textHabitType.setText(getString(R.string.habit_type_habit_details) + " " + habit.getHabitType());
+        textHabitDescription.setText(getString(R.string.description_with_value, habit.getDescription()));
+        textHabitGoal.setText(getString(R.string.goal_with_value, habit.getGoal()));
+        textHabitType.setText(getString(R.string.habit_type_with_value, habit.getHabitType()));
 
-        // Convert goal period based on language
         String translatedGoalPeriod;
         switch (habit.getGoalPeriod()) {
             case "Daily":
@@ -170,13 +150,11 @@ public class HabitDetailActivity extends AppCompatActivity {
                 translatedGoalPeriod = currentLanguage.equals("sk") ? "Mesačne" : "Monthly";
                 break;
             default:
-                translatedGoalPeriod = habit.getGoalPeriod(); // Fallback
+                translatedGoalPeriod = habit.getGoalPeriod();
         }
 
-        // Set translated goal period text
-        textGoalPeriod.setText(getString(R.string.goal_period_habit_details) + " " + translatedGoalPeriod);
+        textGoalPeriod.setText(getString(R.string.goal_period_with_value, translatedGoalPeriod));
 
-        // Convert habit type based on language
         String translatedHabitType;
         switch (habit.getHabitType()) {
             case "Build":
@@ -186,13 +164,11 @@ public class HabitDetailActivity extends AppCompatActivity {
                 translatedHabitType = currentLanguage.equals("sk") ? "Prestať" : "Quit";
                 break;
             default:
-                translatedHabitType = habit.getHabitType(); // Fallback
+                translatedHabitType = habit.getHabitType();
         }
 
-        // Set translated habit type text
-        textHabitType.setText(getString(R.string.habit_type_habit_details) + " " + translatedHabitType);
+        textHabitType.setText(getString(R.string.habit_type_with_value, translatedHabitType));
 
-        // Translation If Predefined
         String translatedMeasurementUnit;
         switch (habit.getMeasurementUnit()) {
             case "Times":
@@ -238,59 +214,64 @@ public class HabitDetailActivity extends AppCompatActivity {
                 translatedMeasurementUnit = "mg";
                 break;
             default:
-                translatedMeasurementUnit = habit.getMeasurementUnit(); //(Custom Units)
+                translatedMeasurementUnit = habit.getMeasurementUnit();
         }
 
-        // Set translated measurement text
-        textMeasurement.setText(getString(R.string.measurement) + " " + translatedMeasurementUnit);
+        textMeasurement.setText(getString(R.string.measurement_with_value, translatedMeasurementUnit));
 
-        // Apply full-screen mode
         applyFullScreenMode();
 
-        // Get current progress
-        currentProgress = dbHelper.getProgressForPeriod(habit.getId(), habit.getGoalPeriod(), selectedDate);
-        textCurrentProgress.setText(getString(R.string.progress) + " " + currentProgress);
+        currentProgress = dbHelper.getProgressForExactDate(habit.getId(), selectedDate);
+        textCurrentProgress.setText(getString(R.string.progress_with_value, currentProgress));
 
-        // Increase progress
         buttonIncrease.setOnClickListener(v -> {
             currentProgress++;
-            textCurrentProgress.setText(getString(R.string.progress) + " " + currentProgress);
+            textCurrentProgress.setText(getString(R.string.progress_with_value, currentProgress));
         });
 
-        // Decrease progress (not below 0)
         buttonDecrease.setOnClickListener(v -> {
             if (currentProgress > 0) {
                 currentProgress--;
-                textCurrentProgress.setText(getString(R.string.progress) + " " + currentProgress);
+                textCurrentProgress.setText(getString(R.string.progress_with_value, currentProgress));
             }
         });
 
-        // Save progress
         buttonSave.setOnClickListener(v -> {
             dbHelper.updateHabitProgress(habit.getId(), selectedDate, currentProgress);
             Toast.makeText(this, getString(R.string.progress_updated), Toast.LENGTH_SHORT).show();
             returnToMyHabits();
         });
 
-        // Delete habit
-        buttonDelete.setOnClickListener(v -> {
-            new AlertDialog.Builder(HabitDetailActivity.this)
-                    .setTitle(getString(R.string.delete_habit_title))
-                    .setMessage(getString(R.string.delete_habit_message))
-                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-                        dbHelper.deleteHabit(habit.getId());
-                        Toast.makeText(HabitDetailActivity.this, getString(R.string.habit_deleted), Toast.LENGTH_SHORT).show();
-                        returnToMyHabits();
-                    })
-                    .setNegativeButton(getString(R.string.no), null)
-                    .show();
-        });
+        TextView textProgressDateIndicator = findViewById(R.id.textProgressDateIndicator);
 
-        // Cancel
+        try {
+            java.text.SimpleDateFormat inputFormat = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+            java.util.Date parsedDate = inputFormat.parse(selectedDate);
+
+            if (parsedDate != null) {
+                java.text.SimpleDateFormat outputFormat = new java.text.SimpleDateFormat("d. MMMM yyyy", getResources().getConfiguration().getLocales().get(0));
+                String displayDate = outputFormat.format(parsedDate);
+                textProgressDateIndicator.setText(getString(R.string.progress_for_date_with_value, displayDate));
+            } else {
+                textProgressDateIndicator.setText(getString(R.string.progress_for_date_with_value, selectedDate));
+            }
+        } catch (Exception e) {
+            textProgressDateIndicator.setText(getString(R.string.progress_for_date_with_value, selectedDate));
+        }
+
+        buttonDelete.setOnClickListener(v -> new AlertDialog.Builder(HabitDetailActivity.this)
+                .setTitle(getString(R.string.delete_habit_title))
+                .setMessage(getString(R.string.delete_habit_message))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                    dbHelper.deleteHabit(habit.getId());
+                    Toast.makeText(HabitDetailActivity.this, getString(R.string.habit_deleted), Toast.LENGTH_SHORT).show();
+                    returnToMyHabits();
+                })
+                .setNegativeButton(getString(R.string.no), null)
+                .show());
+
         buttonCancel.setOnClickListener(v -> returnToMyHabits());
-
         setupFooterNavigation();
-
     }
 
     private void applyFullScreenMode()
@@ -305,7 +286,7 @@ public class HabitDetailActivity extends AppCompatActivity {
     }
     private void returnToMyHabits() {
         Intent intent = new Intent(HabitDetailActivity.this, MyHabitsActivity.class);
-        intent.putExtra("selected_date", selectedDate); // Keep the selected date
+        intent.putExtra("selected_date", selectedDate);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();

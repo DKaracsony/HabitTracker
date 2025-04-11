@@ -2,288 +2,288 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFB16C">
+    android:background="#FFB16C"
+    android:orientation="vertical">
 
-  <!-- Header -->
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="70dp"
-      android:background="@android:color/black"
-      android:orientation="horizontal"
-      android:paddingStart="20dp"
-      android:gravity="center_vertical">
-
-    <TextView
-        android:id="@+id/textHeaderHabitName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_orange_dark" />
-  </LinearLayout>
-
-  <!-- Scrollable Content -->
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1">
-
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="70dp"
+        android:background="@android:color/black"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
 
-      <!-- Habit Name -->
-      <EditText
-          android:id="@+id/editTextHabitName"
-          android:layout_width="match_parent"
-          android:hint="@string/habit_name"
-          android:layout_height="wrap_content"
-          android:background="@android:color/white"
-          android:padding="12dp"
-          android:textSize="18sp"
-          android:layout_marginTop="8dp"/>
-
-      <!-- Habit Description -->
-
-      <EditText
-          android:id="@+id/editTextHabitDescription"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@android:color/white"
-          android:hint="@string/habit_description"
-          android:padding="12dp"
-          android:textSize="18sp"
-          android:layout_marginTop="8dp"
-          android:minHeight="80dp"
-          android:gravity="top"
-          android:inputType="textMultiLine"/>
-
-      <!-- Habit Type -->
-      <TextView
-          android:id="@+id/textHabitType"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/habit_type"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          android:textColor="@android:color/black"
-          android:layout_marginTop="16dp"/>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center"
-          android:layout_marginTop="8dp">
-
-        <Button
-            android:id="@+id/buttonBuildHabit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/build_habit"
-            android:background="@android:color/holo_green_dark"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:minWidth="120dp"
-            android:minHeight="50dp"
-            android:maxLines="1"
-            android:ellipsize="end"/>
-
-        <Button
-            android:id="@+id/buttonQuitHabit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/quit_habit"
-            android:background="@android:color/holo_red_dark"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:textSize="16sp"
-            android:minWidth="120dp"
-            android:minHeight="50dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginStart="8dp"/>
-      </LinearLayout>
-
-
-
-      <!-- Goal Period -->
-      <TextView
-          android:id="@+id/textGoalPeriod"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/goal_period"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          android:textColor="@android:color/black"
-          android:layout_marginTop="16dp"/>
-
-      <Spinner
-          android:id="@+id/spinnerGoalPeriod"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@android:color/white"
-          android:padding="12dp"
-          android:layout_marginTop="8dp"/>
-
-      <!-- Goal Value -->
-      <TextView
-          android:id="@+id/textGoalValue"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/goal_value"
-          android:textSize="18sp"
-          android:textStyle="bold"
-          android:textColor="@android:color/black"
-          android:layout_marginTop="16dp"/>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center_vertical"
-          android:layout_marginTop="8dp">
-
-        <!-- Goal Value Input -->
-        <EditText
-            android:id="@+id/editTextGoalValue"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="8dp"
-            android:textSize="16sp"
-            android:inputType="numberDecimal"
-            android:gravity="center"/>
-
-        <!-- Measurement Selection -->
-        <Spinner
-            android:id="@+id/spinnerMeasurementUnit"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="8dp"
-            android:layout_marginStart="8dp"/>
-
-        <!-- Period Label -->
         <TextView
-            android:id="@+id/textViewMeasurementPeriod"
+            android:id="@+id/textHeaderHabitName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="/day"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:layout_marginStart="8dp"/>
-      </LinearLayout>
-
-      <!-- Custom Measurement Input (Initially Hidden) -->
-      <EditText
-          android:id="@+id/editTextCustomMeasurement"
-          android:layout_width="120dp"
-          android:layout_height="wrap_content"
-          android:background="@android:color/white"
-          android:padding="8dp"
-          android:textSize="16sp"
-          android:layout_marginTop="8dp"
-          android:layout_marginStart="98dp"
-          android:visibility="gone"/>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:gravity="center"
-          android:layout_marginTop="16dp">
-
-        <!-- Save Habit Button -->
-        <Button
-            android:id="@+id/buttonSaveHabit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/save_habit"
-            android:background="@color/light_orange"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:layout_marginTop="16dp"/>
-
-        <!-- Cancel Button -->
-        <Button
-            android:id="@+id/buttonCancelEditing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:background="@color/light_orange"
-            android:textColor="@android:color/white"
-            android:padding="12dp"
-            android:textSize="18sp"
-            android:layout_marginTop="5dp"/>
-
-      </LinearLayout>
-
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
-  </ScrollView>
 
-  <!-- Footer -->
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="70dp"
-      android:background="@android:color/black"
-      android:orientation="horizontal"
-      android:gravity="center"
-      android:weightSum="5">
-
-    <Button
-        android:id="@+id/buttonSocial"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Habit Name -->
+            <EditText
+                android:id="@+id/editTextHabitName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:hint="@string/habit_name"
+                android:padding="12dp"
+                android:textSize="18sp" />
+
+            <!-- Habit Description -->
+
+            <EditText
+                android:id="@+id/editTextHabitDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:gravity="top"
+                android:hint="@string/habit_description"
+                android:inputType="textMultiLine"
+                android:minHeight="80dp"
+                android:padding="12dp"
+                android:textSize="18sp" />
+
+            <!-- Habit Type -->
+            <TextView
+                android:id="@+id/textHabitType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/habit_type"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonBuildHabit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_green_dark"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minWidth="120dp"
+                    android:minHeight="50dp"
+                    android:padding="12dp"
+                    android:text="@string/build_habit"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/buttonQuitHabit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_red_dark"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minWidth="120dp"
+                    android:minHeight="50dp"
+                    android:padding="12dp"
+                    android:text="@string/quit_habit"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <!-- Goal Period -->
+            <TextView
+                android:id="@+id/textGoalPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/goal_period"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerGoalPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:padding="12dp" />
+
+            <!-- Goal Value -->
+            <TextView
+                android:id="@+id/textGoalValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/goal_value"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Goal Value Input -->
+                <EditText
+                    android:id="@+id/editTextGoalValue"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:padding="8dp"
+                    android:textSize="16sp" />
+
+                <!-- Measurement Selection -->
+                <Spinner
+                    android:id="@+id/spinnerMeasurementUnit"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/white"
+                    android:padding="8dp" />
+
+                <!-- Period Label -->
+                <TextView
+                    android:id="@+id/textViewMeasurementPeriod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="/day"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Custom Measurement Input (Initially Hidden) -->
+            <EditText
+                android:id="@+id/editTextCustomMeasurement"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="98dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:padding="8dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- Save Habit Button -->
+                <Button
+                    android:id="@+id/buttonSaveHabit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/light_orange"
+                    android:padding="12dp"
+                    android:text="@string/save_habit"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <!-- Cancel Button -->
+                <Button
+                    android:id="@+id/buttonCancelEditing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_orange"
+                    android:padding="12dp"
+                    android:text="@string/cancel"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:background="@android:color/black"
-        android:drawableTop="@drawable/proba47"
         android:gravity="center"
-        android:paddingVertical="18dp"/>
+        android:orientation="horizontal"
+        android:weightSum="5">
 
-    <Button
-        android:id="@+id/buttonStatistics"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/black"
-        android:drawableTop="@drawable/proba19"
-        android:paddingVertical="18dp"/>
+        <Button
+            android:id="@+id/buttonSocial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:drawableTop="@drawable/social_icon"
+            android:gravity="center"
+            android:paddingVertical="18dp" />
 
-    <Button
-        android:id="@+id/buttonAddHabit"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/black"
-        android:drawableTop="@drawable/icon_add"
-        android:paddingVertical="16dp"/>
+        <Button
+            android:id="@+id/buttonStatistics"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:drawableTop="@drawable/statistics_icon"
+            android:paddingVertical="18dp" />
 
-    <Button
-        android:id="@+id/buttonMyHabits"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/darker_gray"
-        android:drawableTop="@drawable/proba12"
-        android:paddingVertical="18dp"/>
+        <Button
+            android:id="@+id/buttonAddHabit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:drawableTop="@drawable/icon_add"
+            android:paddingVertical="16dp" />
 
-    <Button
-        android:id="@+id/buttonSettings"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@android:color/black"
-        android:drawableTop="@drawable/asdasd"
-        android:paddingVertical="18dp"/>
-  </LinearLayout>
+        <Button
+            android:id="@+id/buttonMyHabits"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/darker_gray"
+            android:drawableTop="@drawable/habits_icon"
+            android:paddingVertical="18dp" />
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black"
+            android:drawableTop="@drawable/settings_icon"
+            android:paddingVertical="18dp" />
+    </LinearLayout>
 
 </LinearLayout>

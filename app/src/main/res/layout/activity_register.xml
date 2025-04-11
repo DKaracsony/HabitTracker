@@ -2,37 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/light_orange"
-    android:padding="20dp"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <!-- Back Button (Top-Left) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="30dp"
         android:gravity="start"
-        android:layout_marginBottom="30dp">
+        android:orientation="horizontal">
 
         <!-- Back Button Container -->
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="50dp"
-            android:padding="4dp"
             android:background="@android:color/black"
-            android:gravity="center">
+            android:gravity="center"
+            android:padding="4dp">
 
             <Button
                 android:id="@+id/buttonGoBack"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="←\n"
-                android:textSize="24sp"
-                android:textColor="@android:color/black"
                 android:background="#FFD580"
+                android:elevation="0dp"
                 android:gravity="center"
-                android:elevation="0dp"/>
+                android:text="←\n"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -41,105 +41,135 @@
         android:id="@+id/editTextRegisterNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"
         android:hint="@string/enter_nickname"
         android:inputType="textPersonName"
-        android:padding="10dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="5dp"/>
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/textNicknameStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="14sp" />
 
     <!-- Email Input -->
     <EditText
         android:id="@+id/editTextRegisterEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"
         android:hint="@string/enter_email"
         android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="5dp"/>
+        android:padding="10dp" />
 
     <TextView
         android:id="@+id/textEmailStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="14sp" />
 
     <!-- Password Input -->
-    <EditText
-        android:id="@+id/editTextRegisterPassword"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp">
+
+        <EditText
+            android:id="@+id/editTextRegisterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/buttonPeekPassword"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_eye_closed" />
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/textPasswordStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="14sp" />
 
     <!-- Confirm Password Input -->
-    <EditText
-        android:id="@+id/editTextConfirmPassword"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp">
+
+        <EditText
+            android:id="@+id/editTextConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/buttonPeekConfirm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_eye_closed" />
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/textConfirmPasswordStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
         android:textColor="@android:color/black"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="14sp" />
 
     <!-- Buttons Container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <!-- Register Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:background="@android:color/black"
-            android:layout_marginBottom="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@android:color/black"
+            android:padding="4dp">
 
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/register"
-                android:textSize="20sp"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
                 android:background="#FFD580"
+                android:elevation="0dp"
                 android:gravity="center"
-                android:elevation="0dp"/>
+                android:padding="10dp"
+                android:text="@string/register"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

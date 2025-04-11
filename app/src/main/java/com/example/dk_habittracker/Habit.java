@@ -8,9 +8,8 @@ public class Habit {
     private String measurementUnit;
     private String goalPeriod;
     private String habitType;
-    private String createdAt;
+    private final String createdAt;
 
-    // Constructor
     public Habit(int id, String name, String description, int goal, String measurementUnit, String goalPeriod, String habitType, String createdAt) {
         this.id = id;
         this.name = name;
@@ -22,7 +21,6 @@ public class Habit {
         this.createdAt = createdAt;
     }
 
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -43,7 +41,5 @@ public class Habit {
 
     public String getHabitType() { return habitType; }
     public void setHabitType(String habitType) { this.habitType = habitType; }
-
     public String getCreatedAt() { return createdAt; }
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 }
