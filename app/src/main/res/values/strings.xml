@@ -44,6 +44,7 @@
 
     <!-- MyHabitsActivity -->
     <string name="my_habits">My Habits</string>
+    <string name="progress_before_creation_warning">This date is before the habit was created, progress won\'t count toward streaks and habit strength</string>
 
     <!-- SettingsActivity -->
     <string name="signed_out">You Have Been Signed Out</string>

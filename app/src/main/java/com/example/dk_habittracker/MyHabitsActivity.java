@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -93,7 +95,9 @@ public class MyHabitsActivity extends AppCompatActivity {
         textViewSelectedDate.setText(dateFormat.format(calendar.getTime()));
 
         ImageButton buttonNextDate = findViewById(R.id.buttonNextDate);
+        ImageButton buttonPreviousDate = findViewById(R.id.buttonPreviousDate);
         Calendar today = Calendar.getInstance();
+
         if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
                 calendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)) {
             buttonNextDate.setEnabled(false);
@@ -102,8 +106,56 @@ public class MyHabitsActivity extends AppCompatActivity {
             buttonNextDate.setEnabled(true);
             buttonNextDate.setAlpha(1.0f);
         }
+
+        boolean disablePrevious = false;
+        List<Habit> allHabits = dbHelper.getAllHabits();
+        if (!allHabits.isEmpty()) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                Date firstCreated = sdf.parse(allHabits.get(0).getCreatedAt());
+                if (firstCreated == null) {
+                    Log.e("MyHabitsActivity", "First habit has null creation date");
+                    return;
+                }
+
+                Calendar earliestCreation = Calendar.getInstance();
+                earliestCreation.setTime(firstCreated);
+
+                for (Habit habit : allHabits) {
+                    Date habitDate = sdf.parse(habit.getCreatedAt());
+                    if (habitDate == null) {
+                        Log.w("MyHabitsActivity", "Skipped habit with null creation date: " + habit.getName());
+                        continue;
+                    }
+
+                    Calendar habitCreated = Calendar.getInstance();
+                    habitCreated.setTime(habitDate);
+
+                    if (habitCreated.before(earliestCreation)) {
+                        earliestCreation = (Calendar) habitCreated.clone();
+                    }
+                }
+
+                Calendar calMinusOne = (Calendar) calendar.clone();
+                calMinusOne.add(Calendar.DAY_OF_MONTH, -1);
+                disablePrevious = calMinusOne.before(earliestCreation);
+
+            } catch (Exception e) {
+                Log.e("MyHabitsActivity", "Error while checking earliest creation date", e);
+            }
+        }
+
+        if (disablePrevious) {
+            buttonPreviousDate.setEnabled(false);
+            buttonPreviousDate.setAlpha(0.5f);
+        } else {
+            buttonPreviousDate.setEnabled(true);
+            buttonPreviousDate.setAlpha(1.0f);
+        }
+
         loadHabitsForDate();
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -114,7 +166,46 @@ public class MyHabitsActivity extends AppCompatActivity {
     }
 
     private void changeDate(int days) {
-        calendar.add(Calendar.DAY_OF_MONTH, days);
+        Calendar newCal = (Calendar) calendar.clone();
+        newCal.add(Calendar.DAY_OF_MONTH, days);
+
+        List<Habit> allHabits = dbHelper.getAllHabits();
+        if (!allHabits.isEmpty()) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                Date firstCreated = sdf.parse(allHabits.get(0).getCreatedAt());
+                if (firstCreated == null) {
+                    Log.e("MyHabitsActivity", "First habit has null creation date");
+                    return;
+                }
+
+                Calendar earliestCreation = Calendar.getInstance();
+                earliestCreation.setTime(firstCreated);
+
+                for (Habit habit : allHabits) {
+                    Date habitDate = sdf.parse(habit.getCreatedAt());
+                    if (habitDate == null) {
+                        Log.w("MyHabitsActivity", "Skipped habit with null creation date: " + habit.getName());
+                        continue;
+                    }
+
+                    Calendar habitCreated = Calendar.getInstance();
+                    habitCreated.setTime(habitDate);
+                    if (habitCreated.before(earliestCreation)) {
+                        earliestCreation = (Calendar) habitCreated.clone();
+                    }
+                }
+
+                if (newCal.before(earliestCreation)) {
+                    return;
+                }
+
+            } catch (Exception e) {
+                Log.e("MyHabitsActivity", "Error while parsing habit creation dates", e);
+            }
+        }
+
+        calendar = newCal;
         updateDateDisplay();
     }
 

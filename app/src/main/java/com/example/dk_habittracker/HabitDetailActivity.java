@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class HabitDetailActivity extends AppCompatActivity {
 
@@ -51,6 +55,17 @@ public class HabitDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Habit not found.", Toast.LENGTH_SHORT).show();
             finish();
             return;
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            java.util.Date createdAt = sdf.parse(habit.getCreatedAt());
+            java.util.Date selected = sdf.parse(selectedDate);
+            if (selected != null && createdAt != null && selected.before(createdAt)) {
+                Toast.makeText(this, getString(R.string.progress_before_creation_warning), Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Log.e("MyHabitsActivity", "Error while parsing habit creation dates", e);
         }
 
         TextView textHabitName = findViewById(R.id.textHeaderHabitName);
