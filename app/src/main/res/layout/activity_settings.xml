@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Black Bar at the Top (Header) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -24,19 +23,17 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true"> <!-- Ensures content fills available space -->
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- User Preferences Section Header -->
             <TextView
                 android:id="@+id/textUserPreferences"
                 android:layout_width="match_parent"
@@ -49,7 +46,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Language Selection Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +91,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Reminder Toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,8 +114,6 @@
 
             </LinearLayout>
 
-
-            <!-- Time Picker Row (Initially Hidden) -->
             <LinearLayout
                 android:id="@+id/reminderTimeSection"
                 android:layout_width="match_parent"
@@ -149,7 +142,6 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-            <!-- Reset All Progress Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -177,7 +169,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Delete All Habits Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -205,8 +196,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-
-            <!-- User Settings Section Header -->
             <TextView
                 android:id="@+id/textUserSettings"
                 android:layout_width="match_parent"
@@ -219,7 +208,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- User Details Section -->
             <LinearLayout
                 android:id="@+id/userDetailsSection"
                 android:layout_width="match_parent"
@@ -248,7 +236,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
-                <!-- Log Out Button -->
                 <Button
                     android:id="@+id/buttonLogout"
                     android:layout_width="match_parent"
@@ -263,7 +250,6 @@
 
             </LinearLayout>
 
-            <!-- UUID Display (shown when offline) -->
             <TextView
                 android:id="@+id/textUUID"
                 android:layout_width="match_parent"
@@ -275,7 +261,6 @@
                 android:textStyle="bold"
                 android:visibility="gone" />
 
-            <!-- Return to StartActivity Button (offline only) -->
             <Button
                 android:id="@+id/buttonReturnToStart"
                 android:layout_width="match_parent"
@@ -292,7 +277,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Black Bar at the Bottom (Footer) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"

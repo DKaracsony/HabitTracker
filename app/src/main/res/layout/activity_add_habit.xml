@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -24,7 +23,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -37,7 +35,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Habit Name -->
             <EditText
                 android:id="@+id/editTextHabitName"
                 android:layout_width="match_parent"
@@ -47,8 +44,6 @@
                 android:hint="@string/habit_name"
                 android:padding="12dp"
                 android:textSize="18sp" />
-
-            <!-- Habit Description -->
 
             <EditText
                 android:id="@+id/editTextHabitDescription"
@@ -63,7 +58,6 @@
                 android:padding="12dp"
                 android:textSize="18sp" />
 
-            <!-- Habit Type -->
             <TextView
                 android:id="@+id/textHabitType"
                 android:layout_width="match_parent"
@@ -113,7 +107,6 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- Goal Period -->
             <TextView
                 android:id="@+id/textGoalPeriod"
                 android:layout_width="match_parent"
@@ -132,7 +125,6 @@
                 android:background="@android:color/white"
                 android:padding="12dp" />
 
-            <!-- Goal Value -->
             <TextView
                 android:id="@+id/textGoalValue"
                 android:layout_width="match_parent"
@@ -150,7 +142,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- Goal Value Input -->
                 <EditText
                     android:id="@+id/editTextGoalValue"
                     android:layout_width="90dp"
@@ -161,7 +152,6 @@
                     android:padding="8dp"
                     android:textSize="16sp" />
 
-                <!-- Measurement Selection -->
                 <Spinner
                     android:id="@+id/spinnerMeasurementUnit"
                     android:layout_width="120dp"
@@ -170,7 +160,6 @@
                     android:background="@android:color/white"
                     android:padding="8dp" />
 
-                <!-- Period Label -->
                 <TextView
                     android:id="@+id/textViewMeasurementPeriod"
                     android:layout_width="wrap_content"
@@ -182,7 +171,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Custom Measurement Input (Initially Hidden) -->
             <EditText
                 android:id="@+id/editTextCustomMeasurement"
                 android:layout_width="120dp"
@@ -201,7 +189,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <!-- Share Habit Checkbox (Shown only if logged in & online) -->
                 <CheckBox
                     android:id="@+id/checkboxShareHabit"
                     android:layout_width="wrap_content"
@@ -213,7 +200,6 @@
                     android:textSize="16sp"
                     android:visibility="gone" />
 
-                <!-- Save Habit Button -->
                 <Button
                     android:id="@+id/buttonSaveHabit"
                     android:layout_width="match_parent"
@@ -230,7 +216,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Footer -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"

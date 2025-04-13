@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -23,7 +22,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -36,7 +34,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Progress Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +95,6 @@
                         android:textSize="22sp" />
                 </LinearLayout>
 
-                <!-- New Manual Input Section -->
                 <EditText
                     android:id="@+id/editTextManualProgress"
                     android:layout_width="match_parent"
@@ -135,7 +131,6 @@
 
             </LinearLayout>
 
-            <!-- Habit Details Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -192,7 +187,6 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- Buttons Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +214,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
-
             </LinearLayout>
 
             <Button
@@ -235,7 +228,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Footer Navigation -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"

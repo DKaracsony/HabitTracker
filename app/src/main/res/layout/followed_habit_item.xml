@@ -8,7 +8,6 @@
     android:orientation="vertical"
     android:padding="12dp">
 
-    <!-- Habit Name -->
     <TextView
         android:id="@+id/textViewHabitName"
         android:layout_width="wrap_content"
@@ -18,7 +17,6 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <!-- Habit Description -->
     <TextView
         android:id="@+id/textViewHabitDescription"
         android:layout_width="wrap_content"

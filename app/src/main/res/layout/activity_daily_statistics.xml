@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Black Bar at the Top (Header) -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -25,7 +24,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable Main Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
@@ -56,7 +54,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- ViewPager2 for Chart Swiping -->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerCharts"
                 android:layout_width="match_parent"
@@ -64,7 +61,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- TabLayout for ViewPager2 Indicators -->
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabIndicator"
                 android:layout_width="wrap_content"
@@ -72,7 +68,6 @@
                 android:layout_gravity="center_horizontal"
                 android:paddingTop="3dp" />
 
-            <!-- Not Completed Habits Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,7 +85,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- TextView for Empty Not Completed Habits -->
             <TextView
                 android:id="@+id/textViewEmptyNotCompleted"
                 android:layout_width="match_parent"
@@ -102,7 +96,6 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
 
-            <!-- Not Completed Habits RecyclerView (Now Scrollable) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +110,6 @@
                     android:padding="10dp" />
             </LinearLayout>
 
-            <!-- Completed Habits Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,7 +127,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- TextView for Empty Completed Habits -->
             <TextView
                 android:id="@+id/textViewEmptyCompleted"
                 android:layout_width="match_parent"
@@ -147,7 +138,6 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
 
-            <!-- Completed Habits RecyclerView (Now Scrollable) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -165,7 +155,6 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Footer Navigation -->
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

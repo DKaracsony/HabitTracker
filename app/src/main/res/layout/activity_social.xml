@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -24,14 +23,12 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Wrapper for NoAccess and MainContent -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- Message shown when no internet or not signed in -->
         <TextView
             android:id="@+id/textViewNoAccess"
             android:layout_width="match_parent"
@@ -44,7 +41,6 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <!-- Main content: Two habit lists -->
         <LinearLayout
             android:id="@+id/mainContent"
             android:layout_width="match_parent"
@@ -52,7 +48,7 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <!-- Habits Shared by Me Section -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +74,6 @@
                 android:padding="10dp"
                 android:scrollbars="vertical" />
 
-            <!-- Habits Shared by Others Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +101,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Footer Navigation -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"

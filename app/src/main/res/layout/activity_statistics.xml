@@ -5,7 +5,6 @@
     android:background="#FFB16C"
     android:orientation="vertical">
 
-    <!-- Black Bar at the Top (Header) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -24,7 +23,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Scrollable Main Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewStatistics"
         android:layout_width="match_parent"
@@ -33,13 +31,11 @@
         android:fillViewport="true"
         android:scrollbars="none">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- 📅 Daily Statistics Section -->
             <TextView
                 android:id="@+id/dailyStatsTitle"
                 android:layout_width="match_parent"
@@ -61,7 +57,6 @@
                 android:focusedMonthDateColor="@color/light_orange"
                 android:weekSeparatorLineColor="@android:color/black" />
 
-            <!-- 📊 Followed Habits Section -->
             <TextView
                 android:id="@+id/followedHabitsTitle"
                 android:layout_width="match_parent"
@@ -75,7 +70,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- 🚨 Message if no habits exist -->
             <TextView
                 android:id="@+id/textViewNoHabitsMessage"
                 android:layout_width="match_parent"
@@ -87,7 +81,6 @@
                 android:textSize="16sp"
                 android:visibility="gone" />
 
-            <!-- 📋 RecyclerView for All Habits -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewFollowedHabits"
                 android:layout_width="match_parent"
@@ -99,7 +92,6 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Footer Navigation -->
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

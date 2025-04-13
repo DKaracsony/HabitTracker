@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <!-- Back Button (Top-Left) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +14,6 @@
         android:gravity="start"
         android:orientation="horizontal">
 
-        <!-- Back Button Container -->
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -36,7 +34,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Nickname Input -->
     <EditText
         android:id="@+id/editTextRegisterNickname"
         android:layout_width="match_parent"
@@ -55,7 +52,6 @@
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
-    <!-- Email Input -->
     <EditText
         android:id="@+id/editTextRegisterEmail"
         android:layout_width="match_parent"
@@ -74,7 +70,6 @@
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
-    <!-- Password Input -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,7 +103,6 @@
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
-    <!-- Confirm Password Input -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -133,7 +127,6 @@
             android:src="@drawable/ic_eye_closed" />
     </FrameLayout>
 
-
     <TextView
         android:id="@+id/textConfirmPasswordStatus"
         android:layout_width="match_parent"
@@ -142,14 +135,12 @@
         android:textColor="@android:color/black"
         android:textSize="14sp" />
 
-    <!-- Buttons Container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
-        <!-- Register Button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
