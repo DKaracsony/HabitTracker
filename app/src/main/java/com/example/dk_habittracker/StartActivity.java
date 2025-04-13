@@ -35,6 +35,14 @@
         };
 
         @Override
+        protected void attachBaseContext(Context newBase) {
+            Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+            overrideConfig.fontScale = 1.0f;
+            Context context = newBase.createConfigurationContext(overrideConfig);
+            super.attachBaseContext(context);
+        }
+
+        @Override
         protected void onResume() {
             super.onResume();
             setFullScreenMode();

@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,14 @@ public class SocialActivity extends AppCompatActivity {
     private SharedHabitAdapter myAdapter;
     private final List<SharedHabit> sharedHabitList = new ArrayList<>();
     private final List<SharedHabit> mySharedHabitList = new ArrayList<>();
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+        overrideConfig.fontScale = 1.0f;
+        Context context = newBase.createConfigurationContext(overrideConfig);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

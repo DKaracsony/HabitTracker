@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -50,6 +51,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+        overrideConfig.fontScale = 1.0f;
+        Context context = newBase.createConfigurationContext(overrideConfig);
+        super.attachBaseContext(context);
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

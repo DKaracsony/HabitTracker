@@ -1,6 +1,8 @@
 package com.example.dk_habittracker;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,14 @@ public class HabitStatisticsActivity extends AppCompatActivity {
     private int habitId;
     private ViewPager2 viewPager;
     private TabLayout tabIndicator;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+        overrideConfig.fontScale = 1.0f;
+        Context context = newBase.createConfigurationContext(overrideConfig);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

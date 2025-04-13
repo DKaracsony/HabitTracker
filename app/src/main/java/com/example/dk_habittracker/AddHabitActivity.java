@@ -1,7 +1,9 @@
 package com.example.dk_habittracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +24,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 public class AddHabitActivity extends AppCompatActivity {
 
     private EditText editTextHabitName, editTextHabitDescription, editTextGoalValue, editTextCustomMeasurement;
@@ -32,6 +33,14 @@ public class AddHabitActivity extends AppCompatActivity {
     private Button buttonQuitHabit;
     private CheckBox checkboxShareHabit;
     private String selectedHabitType = "Build", currentUsername = null, currentUserUid = null;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+        overrideConfig.fontScale = 1.0f;
+        Context context = newBase.createConfigurationContext(overrideConfig);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

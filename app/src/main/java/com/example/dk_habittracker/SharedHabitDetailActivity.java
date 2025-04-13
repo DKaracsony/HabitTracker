@@ -3,6 +3,7 @@ package com.example.dk_habittracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,14 @@ public class SharedHabitDetailActivity extends AppCompatActivity {
     private boolean isMyHabit;
     private DBHelper dbHelper;
     private FirebaseFirestore firestore;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Configuration overrideConfig = new Configuration(newBase.getResources().getConfiguration());
+        overrideConfig.fontScale = 1.0f;
+        Context context = newBase.createConfigurationContext(overrideConfig);
+        super.attachBaseContext(context);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +71,22 @@ public class SharedHabitDetailActivity extends AppCompatActivity {
         TextView periodLabel = findViewById(R.id.textViewMeasurementPeriod);
         Button buttonBuild = findViewById(R.id.buttonBuildHabit);
         Button buttonQuit = findViewById(R.id.buttonQuitHabit);
-
         Button buttonCancel = findViewById(R.id.buttonCancel);
         Button buttonAction = findViewById(R.id.buttonAction);
 
+        String lang = getResources().getConfiguration().getLocales().get(0).getLanguage();
+
         nameField.setText(habit.habitName);
-        if (habit.description != null && !habit.description.trim().isEmpty()) {
-            descField.setText(habit.description);
-        } else {
-            descField.setText("");
-        }
+        descField.setText(habit.description != null && !habit.description.trim().isEmpty() ? habit.description : "");
         goalField.setText(String.valueOf(habit.goalValue));
 
-        if (habit.habitType.equals("Build")) {
-            buttonBuild.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
-            buttonQuit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
-        } else {
-            buttonQuit.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
-            buttonBuild.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
-        }
+        buttonBuild.setBackgroundColor(habit.habitType.equals("Build") ?
+                ContextCompat.getColor(this, android.R.color.holo_green_dark) :
+                ContextCompat.getColor(this, android.R.color.darker_gray));
+
+        buttonQuit.setBackgroundColor(habit.habitType.equals("Quit") ?
+                ContextCompat.getColor(this, android.R.color.holo_red_dark) :
+                ContextCompat.getColor(this, android.R.color.darker_gray));
 
         nameField.setEnabled(false);
         descField.setEnabled(false);
@@ -97,14 +103,12 @@ public class SharedHabitDetailActivity extends AppCompatActivity {
         spinnerPeriod.setAdapter(periodAdapter);
 
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(this,
-                Locale.getDefault().getLanguage().equals("sk") ?
-                        R.array.measurement_units_sk : R.array.measurement_units,
+                lang.equals("sk") ? R.array.measurement_units_sk : R.array.measurement_units,
                 android.R.layout.simple_spinner_item);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUnit.setAdapter(unitAdapter);
 
         String periodValue = habit.goalPeriod;
-        String lang = Locale.getDefault().getLanguage();
         if (lang.equals("sk")) {
             switch (periodValue) {
                 case "Daily": periodValue = "Denne"; break;
@@ -112,7 +116,9 @@ public class SharedHabitDetailActivity extends AppCompatActivity {
                 case "Monthly": periodValue = "Mesačne"; break;
             }
         }
-        spinnerPeriod.setSelection(periodAdapter.getPosition(periodValue));
+
+        int periodPos = periodAdapter.getPosition(periodValue);
+        spinnerPeriod.setSelection(periodPos);
 
         periodLabel.setText(getString(R.string.goal_period_prefix, periodValue));
 
@@ -131,12 +137,15 @@ public class SharedHabitDetailActivity extends AppCompatActivity {
             }
         }
 
-        if (unitAdapter.getPosition(localizedUnit) == -1) {
+        int unitPos = unitAdapter.getPosition(localizedUnit);
+
+        if (unitPos == -1) {
             customMeasurementField.setVisibility(View.VISIBLE);
             customMeasurementField.setText(unitValue);
             spinnerUnit.setSelection(unitAdapter.getPosition(lang.equals("sk") ? "Vlastné" : "Custom"));
         } else {
-            spinnerUnit.setSelection(unitAdapter.getPosition(localizedUnit));
+            customMeasurementField.setVisibility(View.GONE);
+            spinnerUnit.setSelection(unitPos);
         }
 
         TextView header = findViewById(R.id.textHeaderHabitName);
