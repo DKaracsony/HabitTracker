@@ -142,7 +142,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             builder.setTitle(getString(R.string.no_internet_title))
                     .setMessage(getString(R.string.no_internet_message))
                     .setPositiveButton(getString(R.string.go_to_wifi_settings), (dialog, which) -> {
-                        wasInSettings = true; // Mark that user went to settings
+                        wasInSettings = true;
                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     })

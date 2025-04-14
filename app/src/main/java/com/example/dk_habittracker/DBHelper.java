@@ -535,7 +535,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 Log.d("LongestStreak", "Streak broken. Reset current streak.");
             }
 
-            // Go to previous period
             switch (goalPeriod) {
                 case "Daily": calendar.add(Calendar.DAY_OF_YEAR, -1); break;
                 case "Weekly": calendar.add(Calendar.WEEK_OF_YEAR, -1); break;

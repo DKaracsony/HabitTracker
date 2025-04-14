@@ -300,7 +300,6 @@ public class EditHabitActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
                     dbHelper.deleteHabitProgress(habitId);
 
-                    // Update habit data
                     habit.setHabitType(selectedHabitType);
                     habit.setName(habitName);
                     habit.setDescription(habitDescription);
