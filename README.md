@@ -6,34 +6,34 @@ Aplikácia pomáha používateľom budovať pozitívne návyky a eliminovať neg
 
 ---
 
-## ✨ Hlavné funkcionality
+##  Hlavné funkcionality
 
-- ✅ Vytváranie a správa návykov (Build / Quit)
-- 📊 Sledovanie pokroku (denné, týždenné, mesačné ciele)
-- 📈 Štatistiky a vizualizácie:
+-  Vytváranie a správa návykov (Build / Quit)
+-  Sledovanie pokroku (denné, týždenné, mesačné ciele)
+-  Štatistiky a vizualizácie:
   - Line chart (vývoj v čase)
   - Bar chart (týždenný prehľad)
   - Pie chart (úspešnosť)
-- 🎯 Gamifikácia:
+-  Gamifikácia:
   - Streaks (aktuálna a najdlhšia séria)
   - Habit strength (sila návyku)
   - Motivačné prvky
-- 🔐 Používateľský systém:
+-  Používateľský systém:
   - Registrácia / prihlásenie
   - Overenie e-mailu
   - Reset hesla
-- ☁️ Online režim (Firebase):
+-  Online režim (Firebase):
   - Synchronizácia dát
   - Zdieľanie návykov medzi používateľmi
-- 📴 Offline režim:
+-  Offline režim:
   - Lokálne ukladanie pomocou SQLite
-- 🌍 Lokalizácia:
+-  Lokalizácia:
   - Slovenčina / Angličtina
-- ⏰ Denné notifikácie (reminders)
+-  Denné notifikácie (reminders)
 
 ---
 
-## 🛠️ Použité technológie
+##  Použité technológie
 
 **Mobile development**
 - Java
@@ -54,7 +54,7 @@ Aplikácia pomáha používateľom budovať pozitívne návyky a eliminovať neg
 
 ---
 
-## 📱 Inštalácia aplikácie
+##  Inštalácia aplikácie
 
 Aplikáciu je možné nainštalovať pomocou APK súboru:
 
@@ -62,12 +62,12 @@ Aplikáciu je možné nainštalovať pomocou APK súboru:
 
 ---
 
-## 🧠 Architektúra aplikácie
+##  Architektúra aplikácie
 
 Aplikácia kombinuje **lokálne a cloudové úložisko**:
 
-- 📦 SQLite → offline režim
-- ☁️ Firebase → používateľský systém + synchronizácia + sociálne funkcie
+-  SQLite → offline režim
+-  Firebase → používateľský systém + synchronizácia + sociálne funkcie
 
 Tento prístup umožňuje:
 - používanie aplikácie bez internetu
@@ -75,7 +75,7 @@ Tento prístup umožňuje:
 
 ---
 
-## 📊 Štatistiky a gamifikácia
+##  Štatistiky a gamifikácia
 
 Aplikácia využíva viacero spôsobov vizualizácie:
 
@@ -85,7 +85,7 @@ Aplikácia využíva viacero spôsobov vizualizácie:
 
 ---
 
-## 🔐 Bezpečnosť
+##  Bezpečnosť
 
 - Autentifikácia riešená cez Firebase Authentication
 - Prístup k dátam riadený pomocou Firebase Security Rules
@@ -93,7 +93,7 @@ Aplikácia využíva viacero spôsobov vizualizácie:
 
 ---
 
-## 🧪 Testovanie
+##  Testovanie
 
 Aplikácia bola testovaná:
 - na viacerých Android zariadeniach
@@ -102,7 +102,7 @@ Aplikácia bola testovaná:
 
 ---
 
-## 📌 Stav projektu
+##  Stav projektu
 
 Projekt bol úspešne dokončený ako bakalárska práca a je plne funkčný.
 
@@ -113,7 +113,7 @@ Možné budúce rozšírenia:
 
 ---
 
-## 👨‍💻 Autor
+##  Autor
 
 **Dávid Karácsony**  
 Študent aplikovanej informatiky  
@@ -121,6 +121,6 @@ Univerzita Konštantína Filozofa v Nitre
 
 ---
 
-## 📎 GitHub repozitár
+##  GitHub repozitár
 
 👉 https://github.com/DKaracsony/HabitTracker
