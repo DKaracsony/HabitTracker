@@ -11,24 +11,24 @@ Aplikácia pomáha používateľom budovať pozitívne návyky a eliminovať neg
 -  Vytváranie a správa návykov (Build / Quit)
 -  Sledovanie pokroku (denné, týždenné, mesačné ciele)
 -  Štatistiky a vizualizácie:
-  - Line chart (vývoj v čase)
-  - Bar chart (týždenný prehľad)
-  - Pie chart (úspešnosť)
+    - Line chart (vývoj v čase)
+    - Bar chart (týždenný prehľad)
+    - Pie chart (úspešnosť)
 -  Gamifikácia:
-  - Streaks (aktuálna a najdlhšia séria)
-  - Habit strength (sila návyku)
-  - Motivačné prvky
+    - Streaks (aktuálna a najdlhšia séria)
+    - Habit strength (sila návyku)
+    - Motivačné prvky
 -  Používateľský systém:
-  - Registrácia / prihlásenie
-  - Overenie e-mailu
-  - Reset hesla
+    - Registrácia / prihlásenie
+    - Overenie e-mailu
+    - Reset hesla
 -  Online režim (Firebase):
-  - Synchronizácia dát
-  - Zdieľanie návykov medzi používateľmi
+    - Synchronizácia dát
+    - Zdieľanie návykov medzi používateľmi
 -  Offline režim:
-  - Lokálne ukladanie pomocou SQLite
+    - Lokálne ukladanie pomocou SQLite
 -  Lokalizácia:
-  - Slovenčina / Angličtina
+    - Slovenčina / Angličtina
 -  Denné notifikácie (reminders)
 
 ---
